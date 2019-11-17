@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  openhab:
+    image: "eclipse-mosquitto:{{ mosquitto_version }}"
+    restart: always
+    network_mode: host
+    volumes:
+      - "{{ mosquitto_home}}/config:/mosquitto/config"
+      - "{{ mosquitto_home}}/data:/mosquitto/data"
+      - "{{ mosquitto_home}}/etc:/etc/mosquitto"
+      - "{{ mosquitto_home}}/logs:/mosquitto/logs"
+    ports:
+      - 1883:1883
+      - 9001:9001

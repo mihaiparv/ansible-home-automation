@@ -1,0 +1,1 @@
+opteron     ansible_host=opteron      ansible_ssh_user=mihai

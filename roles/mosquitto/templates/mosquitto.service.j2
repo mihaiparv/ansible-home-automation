@@ -1,0 +1,13 @@
+[Unit]
+Description=Mosquitto Service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory={{ openhab_home }}
+ExecStart=/usr/local/bin/docker-compose -f {{ mosquitto_home }}/docker-compose.yml up -d
+ExecStop=/usr/local/bin/docker-compose -f {{ mosquitto_home }}/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

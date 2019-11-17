@@ -1,0 +1,1 @@
+Bridge mqtt:broker:mosquitto [ host="{{ ansible_default_ipv4.address }}", secure=false, username="{{ mosquitto_user }}", password="{{ mosquitto_pass_clear }}" ]

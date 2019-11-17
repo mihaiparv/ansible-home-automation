@@ -1,0 +1,6 @@
+Thing mqtt:topic:mosquitto:sonoff_garage_door "Garage Door" (mqtt:broker:mosquitto) {
+  Channels:
+    Type switch : power "Power" [ stateTopic="sonoff-garage-door/stat/POWER" , commandTopic="sonoff-garage-door/cmnd/POWER", on="ON", off="OFF" ]
+    Type number : rssi "WiFi Signal Strength" [ stateTopic="sonoff-garage-door/tele/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+    Type string : version "Firmware Version" [ stateTopic="sonoff-garage-door/stat/STATUS2", transformationPattern="JSONPATH:$.StatusFWR.Version" ]
+}

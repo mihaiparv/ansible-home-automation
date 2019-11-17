@@ -1,0 +1,66 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0774
+  become: yes
+  with_items:
+    - "{{ mosquitto_home }}"
+    - "{{ mosquitto_home }}/config"
+    - "{{ mosquitto_home }}/data"
+    - "{{ mosquitto_home }}/etc"
+    - "{{ mosquitto_home }}/logs"
+  tags:
+    - mosquitto
+
+- name: ensure the config is up-to-date
+  template:
+    src: mosquitto.conf.j2
+    dest: "{{ mosquitto_home }}/config/mosquitto.conf"
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0664
+  become: yes
+  tags:
+    - mosquitto
+
+- name: ensure the auth config is up-to-date
+  template:
+    src: passwd.j2
+    dest: "{{ mosquitto_home }}/etc/passwd"
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0664
+  become: yes
+  tags:
+    - mosquitto
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ mosquitto_home }}/docker-compose.yml"
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0664
+  become: yes
+  tags:
+    - mosquitto
+
+- name: ensure the service definition is up-to-date
+  template:
+    src: mosquitto.service.j2
+    dest: /usr/lib/systemd/system/mosquitto.service
+  become: yes
+  tags:
+    - mosquitto
+
+- name: ensure mosquitto service is enabled to start at boot
+  systemd:
+    name: mosquitto
+    enabled: yes
+    daemon_reload: yes
+  become: yes
+  tags:
+    - mosquitto

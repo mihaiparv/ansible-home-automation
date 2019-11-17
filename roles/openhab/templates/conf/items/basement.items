@@ -1,0 +1,4 @@
+Switch Garage_Door_Switch "Garrage Door"  { channel="mqtt:topic:mosquitto:sonoff_garage_door:power", expire="1s,command=OFF" }
+
+String Garage_Door_Version "Version: [%s]" <ggroup> { channel="mqtt:topic:mosquitto:sonoff_garage_door:version" }
+Number Garage_Door_Wifi "Wifi: [%d %%]" <network> { channel="mqtt:topic:mosquitto:sonoff_garage_door:rssi" }

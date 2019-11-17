@@ -1,0 +1,7 @@
+sitemap basement label="My home automation" {
+    Frame label="Garage" {
+        Text item=Garage_Door_Version
+        Text item=Garage_Door_Wifi
+        Switch item=Garage_Door_Switch icon="light"
+    }
+}

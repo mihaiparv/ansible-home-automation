@@ -1,0 +1,59 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ openhab_home }}"
+    - "{{ openhab_home }}/addons"
+    - "{{ openhab_home }}/conf"
+    - "{{ openhab_home }}/conf/items"
+    - "{{ openhab_home }}/conf/sitemaps"
+    - "{{ openhab_home }}/conf/things"
+    - "{{ openhab_home }}/userdata"
+  tags:
+    - openhab
+
+- name: ensure the various things / items / etc are configured
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ openhab_home }}/conf/{{ item.path }}"
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0644
+  become: yes
+  with_filetree: templates/conf
+  when: item.state == 'file'
+  tags:
+    - openhab
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ openhab_home }}/docker-compose.yml"
+    owner: "{{ openhab_username }}"
+    group: "{{ openhab_username }}"
+    mode: 0644
+  become: yes
+  tags:
+    - openhab
+
+- name: ensure the service definition is up-to-date
+  template:
+    src: openhab.service.j2
+    dest: /usr/lib/systemd/system/openhab.service
+  become: yes
+  tags:
+    - openhab
+
+- name: ensure openhab service is enabled to start at boot
+  systemd:
+    name: openhab
+    enabled: yes
+    daemon_reload: yes
+  become: yes
+  tags:
+    - openhab
