@@ -11,7 +11,7 @@
     - "{{ mosquitto_home }}/config"
     - "{{ mosquitto_home }}/data"
     - "{{ mosquitto_home }}/etc"
-    - "{{ mosquitto_home }}/logs"
+    - "{{ mosquitto_home }}/log"
   tags:
     - mosquitto
 
@@ -32,7 +32,7 @@
     dest: "{{ mosquitto_home }}/etc/passwd"
     owner: "{{ openhab_username }}"
     group: "{{ openhab_username }}"
-    mode: 0664
+    mode: 0644
   become: yes
   tags:
     - mosquitto
@@ -48,17 +48,9 @@
   tags:
     - mosquitto
 
-- name: ensure the service definition is up-to-date
-  template:
-    src: mosquitto.service.j2
-    dest: /usr/lib/systemd/system/mosquitto.service
-  become: yes
-  tags:
-    - mosquitto
-
 - name: ensure mosquitto service is enabled to start at boot
   systemd:
-    name: mosquitto
+    name: "docker-compose@mosquitto"
     enabled: yes
     daemon_reload: yes
   become: yes
