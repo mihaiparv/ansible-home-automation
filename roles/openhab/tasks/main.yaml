@@ -41,19 +41,11 @@
   tags:
     - openhab
 
-- name: ensure the service definition is up-to-date
-  template:
-    src: openhab.service.j2
-    dest: /usr/lib/systemd/system/openhab.service
-  become: yes
-  tags:
-    - openhab
-
 - name: ensure openhab service is enabled to start at boot
   systemd:
-    name: openhab
-    enabled: yes
-    daemon_reload: yes
-  become: yes
+    name: "docker-compose@openhab"
+    enabled: true
+    daemon_reload: true
+  become: true
   tags:
     - openhab
