@@ -4,6 +4,8 @@
     gid: "{{ openhab_uid }}"
     state: present
   become: yes
+  tags:
+    - system
 
 - name: ensure the openhab user exists
   user:
@@ -13,3 +15,11 @@
     groups: "{{ openhab_username }},docker"
     append: yes
   become: yes
+  tags:
+    - system
+
+- include_tasks: configure-trim.yml
+  when: configure_trim
+  tags:
+    - system
+    - trim

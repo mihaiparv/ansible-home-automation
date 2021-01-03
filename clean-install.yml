@@ -3,6 +3,6 @@
     - { role:           "ansible_docker",
         docker_version: "5:20.10.1~3-0~ubuntu-groovy"}
     - docker_compose
-    - common
+    - system
     - mosquitto
     - openhab
