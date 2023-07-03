@@ -1,0 +1,7 @@
+Group Ap1 "Appartment 1"
+Group Indoor1 "Indoor Appartment 1" (Ap1)
+Group Outdoor1 "Outdoor Appartment 1" (Ap1)
+
+Group Ap2 "Appartment 2"
+Group Indoor2 "Indoor Appartment 2" (Ap2)
+Group Outdoor2 "Outdoor Appartment 2" (Ap2)

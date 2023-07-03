@@ -29,6 +29,7 @@
   when: item.state == 'file'
   tags:
     - openhab
+    - openhab-config
 
 - name: ensure the stack definition is up-to-date
   template:
