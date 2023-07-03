@@ -7,7 +7,7 @@ services:
       - "{{ mosquitto_home}}/data:/mosquitto/data"
       - "{{ mosquitto_home}}/etc:/etc/mosquitto"
       - "{{ mosquitto_home}}/log:/mosquitto/log"
-    user: "{{ openhab_uid }}:{{ openhab_uid }}"
+    user: "{{ mosquitto_uid }}:{{ mosquitto_uid }}"
     ports:
       - 1883:1883
       - 9001:9001

@@ -1,6 +1,9 @@
 openhab_username: openhab
 openhab_uid: 9001
 
+mosquitto_username: mosquitto
+mosquitto_uid: 1883
+
 mosquitto_user: "{{ mosquitto_user_vault }}"
 mosquitto_pass_clear: "{{ mosquitto_pass_vault }}"
 mosquitto_pass_crypt: "{{ mosquitto_pass_crypt_vault }} "

@@ -1,19 +1,29 @@
-- name: ensure the openhab group exists
+- name: ensure the required groups exists
   group:
-    name: "{{ openhab_username }}"
-    gid: "{{ openhab_uid }}"
+    name: "{{ item.name }}"
+    gid: "{{ item.id }}"
     state: present
+  loop:
+    - name: "{{ mosquitto_username }}"
+      id: "{{ mosquitto_uid }}"
+    - name: "{{ openhab_username }}"
+      id: "{{ openhab_uid }}"
   become: yes
   tags:
     - system
 
-- name: ensure the openhab user exists
+- name: ensure the required users exists
   user:
-    name: "{{ openhab_username }}"
+    name: "{{ item.name }}"
     shell: /sbin/nologin
-    uid: "{{ openhab_uid }}"
-    groups: "{{ openhab_username }},docker"
+    uid: "{{ item.id }}"
+    groups: "{{ item.name }},docker"
     append: yes
+  loop:
+    - name: "{{ mosquitto_username }}"
+      id: "{{ mosquitto_uid }}"
+    - name: "{{ openhab_username }}"
+      id: "{{ openhab_uid }}"
   become: yes
   tags:
     - system

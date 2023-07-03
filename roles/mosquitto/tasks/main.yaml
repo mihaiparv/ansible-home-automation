@@ -2,8 +2,8 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ openhab_username }}"
-    group: "{{ openhab_username }}"
+    owner: "{{ mosquitto_username }}"
+    group: "{{ mosquitto_username }}"
     mode: 0774
   become: yes
   with_items:
@@ -19,8 +19,8 @@
   template:
     src: mosquitto.conf.j2
     dest: "{{ mosquitto_home }}/config/mosquitto.conf"
-    owner: "{{ openhab_username }}"
-    group: "{{ openhab_username }}"
+    owner: "{{ mosquitto_username }}"
+    group: "{{ mosquitto_username }}"
     mode: 0664
   become: yes
   tags:
@@ -30,8 +30,8 @@
   template:
     src: passwd.j2
     dest: "{{ mosquitto_home }}/etc/passwd"
-    owner: "{{ openhab_username }}"
-    group: "{{ openhab_username }}"
+    owner: "{{ mosquitto_username }}"
+    group: "{{ mosquitto_username }}"
     mode: 0644
   become: yes
   tags:
@@ -41,8 +41,8 @@
   template:
     src: docker-compose.j2.yml
     dest: "{{ mosquitto_home }}/docker-compose.yml"
-    owner: "{{ openhab_username }}"
-    group: "{{ openhab_username }}"
+    owner: "{{ mosquitto_username }}"
+    group: "{{ mosquitto_username }}"
     mode: 0664
   become: yes
   tags:
