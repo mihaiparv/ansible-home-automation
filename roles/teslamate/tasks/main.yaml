@@ -1,0 +1,47 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ teslamate_username }}"
+    group: "{{ teslamate_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ teslamate_home }}"
+  tags:
+    - teslamate
+
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ teslamate_username }}"
+    group: "{{ teslamate_username }}"
+    mode: 0777
+  become: yes
+  with_items:
+    - "{{ teslamate_home }}/import"
+    - "{{ teslamate_home }}/db-data"
+    - "{{ teslamate_home }}/grafana-data"
+  tags:
+    - teslamate
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ teslamate_home }}/docker-compose.yml"
+    owner: "{{ teslamate_username }}"
+    group: "{{ teslamate_username }}"
+    mode: 0644
+  become: yes
+  tags:
+    - teslamate
+
+- name: ensure teslamate service is enabled to start at boot
+  systemd:
+    name: "docker-compose@teslamate"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - teslamate

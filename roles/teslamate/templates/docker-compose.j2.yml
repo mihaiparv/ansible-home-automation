@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  teslamate:
+    image: teslamate/teslamate:{{ teslamate_version }}
+    restart: always
+    environment:
+      - ENCRYPTION_KEY={{ teslamate_encryption_key }}
+      - DATABASE_USER={{ teslamate_username }}
+      - DATABASE_PASS={{ teslamate_database_password }}
+      - DATABASE_NAME=teslamate
+      - DATABASE_HOST=database
+      - MQTT_HOST=host.docker.internal
+      - MQTT_USERNAME={{ mosquitto_user }}
+      - MQTT_PASSWORD={{ mosquitto_pass_clear }}
+    ports:
+      - 4000:4000
+    volumes:
+      - "{{ teslamate_home }}/import:/opt/app/import"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    cap_drop:
+      - all
+
+  database:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER={{ teslamate_username }}
+      - POSTGRES_PASSWORD={{ teslamate_database_password }}
+      - POSTGRES_DB=teslamate
+    volumes:
+      - "{{ teslamate_home }}/db-data:/var/lib/postgresql/data"
+
+  grafana:
+    image: teslamate/grafana:{{ teslamate_version }}
+    restart: always
+    environment:
+      - DATABASE_USER={{ teslamate_username }}
+      - DATABASE_PASS={{ teslamate_database_password }}
+      - DATABASE_NAME=teslamate
+      - DATABASE_HOST=database
+    ports:
+      - 3000:3000
+    volumes:
+      - "{{ teslamate_home }}/grafana-data:/var/lib/grafana"
+

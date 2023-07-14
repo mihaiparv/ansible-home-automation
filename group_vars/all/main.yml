@@ -4,6 +4,12 @@ openhab_uid: 9001
 mosquitto_username: mosquitto
 mosquitto_uid: 1883
 
+teslamate_username: teslamate
+teslamate_uid: 5500
+
 mosquitto_user: "{{ mosquitto_user_vault }}"
 mosquitto_pass_clear: "{{ mosquitto_pass_vault }}"
 mosquitto_pass_crypt: "{{ mosquitto_pass_crypt_vault }} "
+
+teslamate_encryption_key: "{{ teslamate_encryption_key_vault }}"
+teslamate_database_password: "{{ teslamate_database_password_vault }}"
