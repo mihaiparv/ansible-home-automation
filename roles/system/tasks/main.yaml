@@ -10,6 +10,8 @@
       id: "{{ openhab_uid }}"
     - name: "{{ zigbee2mqtt_username }}"
       id: "{{ zigbee2mqtt_uid }}"
+    - name: "{{ evcc_username }}"
+      id: "{{ evcc_uid }}"
     - name: "{{ teslamate_username }}"
       id: "{{ teslamate_uid }}"
   become: yes
@@ -30,6 +32,8 @@
       id: "{{ openhab_uid }}"
     - name: "{{ zigbee2mqtt_username }}"
       id: "{{ zigbee2mqtt_uid }}"
+    - name: "{{ evcc_username }}"
+      id: "{{ evcc_uid }}"
     - name: "{{ teslamate_username }}"
       id: "{{ teslamate_uid }}"
   become: yes

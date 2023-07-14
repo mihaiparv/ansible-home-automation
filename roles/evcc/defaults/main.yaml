@@ -1,0 +1,14 @@
+evcc_version: 0.118.6
+evcc_home: /opt/evcc
+
+evcc_meters:
+  grid:
+    host: 192.168.1.12
+    channel: 0
+  pv:
+    host: 192.168.1.12
+    channel: 1
+  umc:
+    host: 192.168.1.14
+    relay: 0
+    channel: 1

@@ -8,6 +8,8 @@ zigbee2mqtt_username: zigbee2mqtt
 zigbee2mqtt_uid: 3500
 
 evcc_username: evcc
+evcc_uid: 4500
+
 teslamate_username: teslamate
 teslamate_uid: 5500
 

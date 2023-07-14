@@ -1,0 +1,18 @@
+version: "3"
+services:
+  evcc:
+    command:
+      - evcc
+    container_name: evcc
+    image: evcc/evcc:{{ evcc_version }}
+    ports:
+      - 7070:7070/tcp
+      - 8887:8887/tcp
+      - 7090:7090/udp
+      - 9522:9522/udp
+    volumes:
+      - "{{ evcc_home }}/evcc.yaml:/etc/evcc.yaml"
+      - "{{ evcc_home }}/.evcc:/root/.evcc"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

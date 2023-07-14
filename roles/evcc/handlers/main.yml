@@ -1,0 +1,6 @@
+---
+- name: restart evcc
+  systemd:
+    name: "docker-compose@evcc"
+    state: restarted
+  become: true

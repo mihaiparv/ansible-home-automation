@@ -6,4 +6,6 @@
     - system
     - mosquitto
     - openhab
+    - zigbee2mqtt
+    - evcc
     - teslamate
