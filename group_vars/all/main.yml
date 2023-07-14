@@ -4,6 +4,9 @@ openhab_uid: 9001
 mosquitto_username: mosquitto
 mosquitto_uid: 1883
 
+homeassistant_username: homeassistant
+homeassistant_uid: 2500
+
 zigbee2mqtt_username: zigbee2mqtt
 zigbee2mqtt_uid: 3500
 

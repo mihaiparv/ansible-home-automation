@@ -1,0 +1,45 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ homeassistant_username }}"
+    group: "{{ homeassistant_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ homeassistant_home }}"
+    - "{{ homeassistant_home }}/config"
+    - "{{ homeassistant_home }}/docker"
+  tags:
+    - homeassistant
+
+- name: ensure the run script is up-to-date
+  template:
+    src: run
+    dest: "{{ homeassistant_home }}/docker"
+    owner: "{{ homeassistant_username }}"
+    group: "{{ homeassistant_username }}"
+    mode: 0755
+  become: yes
+  tags:
+    - homeassistant
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ homeassistant_home }}/docker-compose.yml"
+    owner: "{{ homeassistant_username }}"
+    group: "{{ homeassistant_username }}"
+    mode: 0644
+  become: yes
+  tags:
+    - homeassistant
+
+- name: ensure homeassistant service is enabled to start at boot
+  systemd:
+    name: "docker-compose@homeassistant"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - homeassistant

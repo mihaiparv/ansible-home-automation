@@ -1,0 +1,15 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:{{ homeassistant_version }}"
+    volumes:
+      - "{{ homeassistant_home }}/config:/config"
+      - "{{ homeassistant_home }}/docker/run:/etc/services.d/home-assistant/run"
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - PUID={{ homeassistant_uid }}
+      - PGID={{ homeassistant_uid }}
+      - UMASK=007
+      - PACKAGES=iputils
+    restart: unless-stopped
+    network_mode: host
