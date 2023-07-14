@@ -406,7 +406,7 @@ listener 1883
 # subscriptions, currently in-flight messages and retained
 # messages.
 # retained_persistence is a synonym for this option.
-#persistence false
+persistence true
 
 # The filename to use for the persistent database, not including
 # the path.
@@ -416,7 +416,7 @@ listener 1883
 # Default is an empty string (current directory).
 # Set to e.g. /var/lib/mosquitto if running as a proper service on Linux or
 # similar.
-#persistence_location
+persistence_location /mosquitto/data
 
 
 # =================================================================
@@ -480,7 +480,7 @@ listener 1883
 # seconds since the Unix epoch.
 # This is a free text string which will be passed to the strftime function. To
 # get an ISO 8601 datetime, for example:
-# log_timestamp_format %Y-%m-%dT%H:%M:%S
+log_timestamp_format %Y-%m-%dT%H:%M:%S
 #log_timestamp_format
 
 # Change the websockets logging level. This is a global option, it is not
