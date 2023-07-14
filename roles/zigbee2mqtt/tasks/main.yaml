@@ -1,0 +1,44 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ zigbee2mqtt_username }}"
+    group: "{{ zigbee2mqtt_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ zigbee2mqtt_home }}"
+    - "{{ zigbee2mqtt_home }}/data"
+  tags:
+    - zigbee2mqtt
+
+# - name: ensure the configuration is up-to-date
+#   template:
+#     src: configuration.yaml.j2
+#     dest: "{{ zigbee2mqtt_home }}/data/configuration.yaml"
+#     owner: "{{ zigbee2mqtt_username }}"
+#     group: "{{ zigbee2mqtt_username }}"
+#     mode: 0644
+#   become: yes
+#   tags:
+#     - zigbee2mqtt
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ zigbee2mqtt_home }}/docker-compose.yml"
+    owner: "{{ zigbee2mqtt_username }}"
+    group: "{{ zigbee2mqtt_username }}"
+    mode: 0644
+  become: yes
+  tags:
+    - zigbee2mqtt
+
+- name: ensure zigbee2mqtt service is enabled to start at boot
+  systemd:
+    name: "docker-compose@zigbee2mqtt"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - zigbee2mqtt

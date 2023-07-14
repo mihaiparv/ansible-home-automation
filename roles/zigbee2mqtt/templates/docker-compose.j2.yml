@@ -1,0 +1,14 @@
+services:
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: "koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}"
+    volumes:
+      - "{{ zigbee2mqtt_home }}/data:/app/data"
+      - /etc/localtime:/etc/localtime:ro
+    user: "{{ zigbee2mqtt_uid }}:{{ zigbee2mqtt_uid }}"
+    ports:
+      - 9080:9080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    

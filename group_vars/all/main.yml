@@ -4,6 +4,10 @@ openhab_uid: 9001
 mosquitto_username: mosquitto
 mosquitto_uid: 1883
 
+zigbee2mqtt_username: zigbee2mqtt
+zigbee2mqtt_uid: 3500
+
+evcc_username: evcc
 teslamate_username: teslamate
 teslamate_uid: 5500
 
