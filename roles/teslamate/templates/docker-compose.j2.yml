@@ -4,6 +4,8 @@ services:
   teslamate:
     image: teslamate/teslamate:{{ teslamate_version }}
     restart: always
+    depends_on:
+      - database
     environment:
       - ENCRYPTION_KEY={{ teslamate_encryption_key }}
       - DATABASE_USER={{ teslamate_username }}
@@ -21,6 +23,28 @@ services:
       - "host.docker.internal:host-gateway"
     cap_drop:
       - all
+
+  teslamateapi:
+    image: tobiasehlert/teslamateapi:{{ teslamateapi_version }}
+    restart: always
+    depends_on:
+      - database
+    environment:
+      - ENCRYPTION_KEY={{ teslamate_encryption_key }}
+      - DATABASE_USER={{ teslamate_username }}
+      - DATABASE_PASS={{ teslamate_database_password }}
+      - DATABASE_NAME=teslamate
+      - DATABASE_HOST=database
+      - MQTT_HOST=host.docker.internal
+      - MQTT_USERNAME={{ mosquitto_user }}
+      - MQTT_PASSWORD={{ mosquitto_pass_clear }}
+      - ENABLE_COMMANDS=true
+      - COMMANDS_ALL=true
+      - API_TOKEN_DISABLE=true
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   database:
     image: postgres:15
@@ -44,4 +68,3 @@ services:
       - 3000:3000
     volumes:
       - "{{ teslamate_home }}/grafana-data:/var/lib/grafana"
-

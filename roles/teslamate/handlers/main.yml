@@ -1,0 +1,6 @@
+---
+- name: restart teslamate
+  systemd:
+    name: "docker-compose@teslamate"
+    state: restarted
+  become: true
