@@ -32,6 +32,8 @@
     group: "{{ homeassistant_username }}"
     mode: 0644
   become: yes
+  notify:
+    - restart homeassistant
   tags:
     - homeassistant
 
