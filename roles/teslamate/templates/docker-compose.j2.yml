@@ -15,12 +15,15 @@ services:
       - MQTT_HOST=host.docker.internal
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
+      - TZ=Europe/Bucharest
     ports:
       - 4000:4000
     volumes:
       - "{{ teslamate_home }}/import:/opt/app/import"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - home_automation
     cap_drop:
       - all
 
@@ -41,10 +44,13 @@ services:
       - ENABLE_COMMANDS=true
       - COMMANDS_ALL=true
       - API_TOKEN_DISABLE=true
+      - TZ=Europe/Bucharest
     ports:
       - 8080:8080
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - home_automation
 
   database:
     image: postgres:15
@@ -53,6 +59,8 @@ services:
       - POSTGRES_USER={{ teslamate_username }}
       - POSTGRES_PASSWORD={{ teslamate_database_password }}
       - POSTGRES_DB=teslamate
+    networks:
+      - home_automation
     volumes:
       - "{{ teslamate_home }}/db-data:/var/lib/postgresql/data"
 
@@ -66,5 +74,12 @@ services:
       - DATABASE_HOST=database
     ports:
       - 3000:3000
+    networks:
+      - home_automation
     volumes:
       - "{{ teslamate_home }}/grafana-data:/var/lib/grafana"
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation
