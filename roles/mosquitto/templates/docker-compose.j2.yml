@@ -1,5 +1,5 @@
 services:
-  broker:
+  mosquitto:
     image: "eclipse-mosquitto:{{ mosquitto_version }}"
     restart: always
     volumes:
@@ -11,3 +11,10 @@ services:
     ports:
       - 1883:1883
       - 9001:9001
+    networks:
+      - home_automation
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation

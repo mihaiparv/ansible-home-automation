@@ -23,6 +23,8 @@
     group: "{{ mosquitto_username }}"
     mode: 0664
   become: yes
+  notify:
+    - restart mosquitto
   tags:
     - mosquitto
 
@@ -34,6 +36,8 @@
     group: "{{ mosquitto_username }}"
     mode: 0644
   become: yes
+  notify:
+    - restart mosquitto
   tags:
     - mosquitto
 
@@ -45,6 +49,8 @@
     group: "{{ mosquitto_username }}"
     mode: 0664
   become: yes
+  notify:
+    - restart mosquitto
   tags:
     - mosquitto
 

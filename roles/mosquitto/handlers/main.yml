@@ -1,0 +1,6 @@
+---
+- name: restart mosquitto
+  systemd:
+    name: "docker-compose@mosquitto"
+    state: restarted
+  become: true
