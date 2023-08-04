@@ -48,6 +48,29 @@
   tags:
     - system
 
+- name: ensure the required system dependencies exist
+  package:
+    name:
+      - python3-pip
+  become: yes
+  tags:
+    - system
+
+- name: ensure the required python dependencies exist
+  pip:
+    name:
+      - docker
+  become: yes
+  tags:
+    - system
+
+- name: ensure the home_automation docker network exists
+  docker_network:
+    name: home_automation
+  become: yes
+  tags:
+    - system
+
 - include_tasks: configure-trim.yml
   when: configure_trim
   tags:
