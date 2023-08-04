@@ -20,6 +20,8 @@
 #     group: "{{ zigbee2mqtt_username }}"
 #     mode: 0644
 #   become: yes
+#   notify:
+#     - restart zigbee2mqtt
 #   tags:
 #     - zigbee2mqtt
 
@@ -31,6 +33,8 @@
     group: "{{ zigbee2mqtt_username }}"
     mode: 0644
   become: yes
+  notify:
+    - restart zigbee2mqtt
   tags:
     - zigbee2mqtt
 
