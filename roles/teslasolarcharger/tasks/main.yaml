@@ -1,0 +1,35 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ teslasolarcharger_username }}"
+    group: "{{ teslasolarcharger_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ teslasolarcharger_home }}"
+    - "{{ teslasolarcharger_home }}/configs"
+  tags:
+    - teslasolarcharger
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ teslasolarcharger_home }}/docker-compose.yml"
+    owner: "{{ teslasolarcharger_username }}"
+    group: "{{ teslasolarcharger_username }}"
+    mode: 0644
+  become: yes
+  notify:
+    - restart teslasolarcharger
+  tags:
+    - teslasolarcharger
+
+- name: ensure evcc service is enabled to start at boot
+  systemd:
+    name: "docker-compose@teslasolarcharger"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - teslasolarcharger

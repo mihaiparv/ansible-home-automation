@@ -16,6 +16,9 @@ evcc_uid: 4500
 teslamate_username: teslamate
 teslamate_uid: 5500
 
+teslasolarcharger_username: teslasolarcharger
+teslasolarcharger_uid: 6500
+
 mosquitto_user: "{{ mosquitto_user_vault }}"
 mosquitto_pass_clear: "{{ mosquitto_pass_vault }}"
 mosquitto_pass_crypt: "{{ mosquitto_pass_crypt_vault }} "

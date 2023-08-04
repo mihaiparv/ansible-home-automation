@@ -1,0 +1,10 @@
+teslasolarcharger_version: 2.20.0
+teslasolarcharger_home: /opt/teslasolarcharger
+
+teslasolarcharger_meters:
+  grid:
+    host: 192.168.1.12
+    channel: 0
+  pv:
+    host: 192.168.1.12
+    channel: 1

@@ -16,6 +16,8 @@
       id: "{{ evcc_uid }}"
     - name: "{{ teslamate_username }}"
       id: "{{ teslamate_uid }}"
+    - name: "{{ teslasolarcharger_username }}"
+      id: "{{ teslasolarcharger_uid }}"
   become: yes
   tags:
     - system
@@ -40,6 +42,8 @@
       id: "{{ evcc_uid }}"
     - name: "{{ teslamate_username }}"
       id: "{{ teslamate_uid }}"
+    - name: "{{ teslasolarcharger_username }}"
+      id: "{{ teslasolarcharger_uid }}"
   become: yes
   tags:
     - system
