@@ -5,9 +5,7 @@
     - docker_compose
     - system
     - mosquitto
-    - openhab
     - homeassistant
     - zigbee2mqtt
-    - evcc
     - teslamate
     - teslasolarcharger
