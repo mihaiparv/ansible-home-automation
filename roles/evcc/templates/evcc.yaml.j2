@@ -212,7 +212,7 @@ tariffs:
 
 # mqtt message broker
 mqtt:
-  broker: host.docker.internal:1883
+  broker: mosquitto:1883
   topic: evcc # root topic for publishing, set empty to disable
   user: {{ mosquitto_user }}
   password: {{ mosquitto_pass_clear }}

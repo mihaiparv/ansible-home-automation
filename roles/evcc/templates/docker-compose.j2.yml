@@ -13,6 +13,11 @@ services:
     volumes:
       - "{{ evcc_home }}/evcc.yaml:/etc/evcc.yaml"
       - "{{ evcc_home }}/.evcc:/root/.evcc"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     restart: unless-stopped
+    networks:
+      - home_automation
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation

@@ -33,6 +33,8 @@
     group: "{{ evcc_username }}"
     mode: 0644
   become: yes
+  notify:
+    - restart evcc
   tags:
     - evcc
 
