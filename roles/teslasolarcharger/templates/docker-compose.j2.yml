@@ -3,7 +3,7 @@ services:
   teslasolarcharger:
     image: pkuehnel/teslasolarcharger:{{ teslasolarcharger_version }}
     container_name: teslasolarcharger
-    restart: always
+    restart: unless-stopped
     environment:
 #      - Serilog__MinimumLevel__Default=Verbose #uncomment this line and recreate container with docker-compose up -d for more detailed logs
       - TZ=Europe/Bucharest ##You can change your Timezone here

@@ -3,7 +3,8 @@ version: "3"
 services:
   teslamate:
     image: teslamate/teslamate:{{ teslamate_version }}
-    restart: always
+    container_name: teslamate
+    restart: unless-stopped
     depends_on:
       - database
     environment:
@@ -29,7 +30,8 @@ services:
 
   teslamateapi:
     image: tobiasehlert/teslamateapi:{{ teslamateapi_version }}
-    restart: always
+    container_name: teslamateapi
+    restart: unless-stopped
     depends_on:
       - database
     environment:
@@ -54,7 +56,8 @@ services:
 
   database:
     image: postgres:15
-    restart: always
+    container_name: database
+    restart: unless-stopped
     environment:
       - POSTGRES_USER={{ teslamate_username }}
       - POSTGRES_PASSWORD={{ teslamate_database_password }}
@@ -66,7 +69,8 @@ services:
 
   grafana:
     image: teslamate/grafana:{{ teslamate_version }}
-    restart: always
+    container_name: grafana
+    restart: unless-stopped
     environment:
       - DATABASE_USER={{ teslamate_username }}
       - DATABASE_PASS={{ teslamate_database_password }}

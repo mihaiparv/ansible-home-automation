@@ -1,7 +1,10 @@
+version: "3"
+
 services:
   mosquitto:
+    container_name: mosquitto
     image: "eclipse-mosquitto:{{ mosquitto_version }}"
-    restart: always
+    restart: unless-stopped
     volumes:
       - "{{ mosquitto_home}}/config:/mosquitto/config"
       - "{{ mosquitto_home}}/data:/mosquitto/data"

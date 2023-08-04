@@ -1,7 +1,7 @@
 services:
   openhab:
     image: "openhab/openhab:{{ openhab_version }}"
-    restart: always
+    restart: unless-stopped
     network_mode: host
     volumes:
       - "/etc/localtime:/etc/localtime:ro"
