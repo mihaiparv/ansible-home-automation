@@ -25,7 +25,7 @@
   tags:
     - teslasolarcharger
 
-- name: ensure evcc service is enabled to start at boot
+- name: ensure teslasolarcharger service is enabled to start at boot
   systemd:
     name: "docker-compose@teslasolarcharger"
     enabled: true
