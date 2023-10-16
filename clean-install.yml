@@ -7,10 +7,11 @@
     - { role:              mosquitto,
         mosquitto_version: 2.0 }
     - { role:                  homeassistant,
-        homeassistant_version: 2023.9.2 }
+        homeassistant_version: 2023.10.3 }
     - { role:                zigbee2mqtt,
         zigbee2mqtt_version: 1.33.0 }
-    - { role:              teslamate,
-        teslamate_version: 1.27.3 }
+    - { role:                 teslamate,
+        teslamateapi_version: 1.16.5,
+        teslamate_version:    1.27.3 }
     - { role:                      teslasolarcharger,
-        teslasolarcharger_version: 2.20.3 }
+        teslasolarcharger_version: 2.21.0 }
