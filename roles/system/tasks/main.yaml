@@ -18,6 +18,8 @@
       id: "{{ teslamate_uid }}"
     - name: "{{ teslasolarcharger_username }}"
       id: "{{ teslasolarcharger_uid }}"
+    - name: "{{ smokeping_username }}"
+      id: "{{ smokeping_uid }}"
   become: yes
   tags:
     - system
@@ -44,6 +46,8 @@
       id: "{{ teslamate_uid }}"
     - name: "{{ teslasolarcharger_username }}"
       id: "{{ teslasolarcharger_uid }}"
+    - name: "{{ smokeping_username }}"
+      id: "{{ smokeping_uid }}"
   become: yes
   tags:
     - system

@@ -1,0 +1,6 @@
+---
+- name: restart smokeping
+  systemd:
+    name: "docker-compose@smokeping"
+    state: restarted
+  become: true

@@ -1,0 +1,22 @@
+version: "3"
+services:
+  smokeping:
+    image: lscr.io/linuxserver/smokeping:{{ smokeping_version }}
+    container_name: smokeping
+    restart: unless-stopped
+    environment:
+      - PUID={{ smokeping_uid }}
+      - PGID={{ smokeping_uid }}
+      - TZ=Europe/Bucharest
+    ports:
+      - 7080:80
+    networks:
+      - home_automation
+    volumes:
+      - "{{ smokeping_home }}/config:/config"
+      - "{{ smokeping_home }}/data:/data"
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation

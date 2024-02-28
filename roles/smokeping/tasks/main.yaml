@@ -1,0 +1,51 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ smokeping_username }}"
+    group: "{{ smokeping_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ smokeping_home }}"
+    - "{{ smokeping_home }}/config"
+    - "{{ smokeping_home }}/data"
+  tags:
+    - smokeping
+
+- name: ensure service config is up-to-date
+  copy:
+    src: "{{ item }}"
+    dest: "{{ smokeping_home }}/config/{{ item }}"
+    owner: "{{ smokeping_username }}"
+    group: "{{ smokeping_username }}"
+    mode: 0644
+  become: yes
+  notify:
+    - restart smokeping
+  with_items:
+    - Database
+  tags:
+    - smokeping
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ smokeping_home }}/docker-compose.yml"
+    owner: "{{ smokeping_username }}"
+    group: "{{ smokeping_username }}"
+    mode: 0644
+  become: yes
+  notify:
+    - restart smokeping
+  tags:
+    - smokeping
+
+- name: ensure smokeping service is enabled to start at boot
+  systemd:
+    name: "docker-compose@smokeping"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - smokeping

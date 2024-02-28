@@ -19,6 +19,9 @@ teslamate_uid: 5500
 teslasolarcharger_username: teslasolarcharger
 teslasolarcharger_uid: 6500
 
+smokeping_username: smokeping
+smokeping_uid: 7500
+
 mosquitto_user: "{{ mosquitto_user_vault }}"
 mosquitto_pass_clear: "{{ mosquitto_pass_vault }}"
 mosquitto_pass_crypt: "{{ mosquitto_pass_crypt_vault }} "
