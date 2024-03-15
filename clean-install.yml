@@ -14,6 +14,6 @@
         teslamateapi_version: 1.16.6,
         teslamate_version:    1.28.3 }
     - { role:                      teslasolarcharger,
-        teslasolarcharger_version: 2.23.1 }
+        teslasolarcharger_version: 2.24.7 }
     - { role:              smokeping,
         smokeping_version: 2.8.2-r3-ls77 }
