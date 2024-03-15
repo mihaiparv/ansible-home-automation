@@ -6,7 +6,9 @@ services:
     restart: unless-stopped
     environment:
 #      - Serilog__MinimumLevel__Default=Verbose #uncomment this line and recreate container with docker-compose up -d for more detailed logs
+      - Serilog__MinimumLevel__Default=Information
       - TZ=Europe/Bucharest ##You can change your Timezone here
+      - UseFleetApi=false
     ports:
       - 7190:80
     networks:
