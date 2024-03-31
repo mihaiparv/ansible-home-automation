@@ -1,18 +1,18 @@
 - hosts: all
   roles:
     - { role:           ansible_docker,
-        docker_version: "5:25.0.4-1~ubuntu.22.04~jammy"}
+        docker_version: "5:26.0.0-1~ubuntu.22.04~jammy"}
     - docker_compose
     - system
     - { role:              mosquitto,
         mosquitto_version: 2.0 }
     - { role:                  homeassistant,
-        homeassistant_version: 2024.3.1 }
+        homeassistant_version: 2024.3.3 }
     - { role:                zigbee2mqtt,
         zigbee2mqtt_version: 1.36.0 }
     - { role:                 teslamate,
-        teslamateapi_version: 1.16.6,
-        teslamate_version:    1.28.3 }
+        teslamateapi_version: 1.17.2,
+        teslamate_version:    1.28.5 }
     - { role:                      teslasolarcharger,
         teslasolarcharger_version: 2.24.7 }
     - { role:              smokeping,
