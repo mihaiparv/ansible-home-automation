@@ -7,9 +7,9 @@
     - { role:              mosquitto,
         mosquitto_version: 2.0 }
     - { role:                  homeassistant,
-        homeassistant_version: 2024.3.3 }
+        homeassistant_version: 2024.4.2 }
     - { role:                zigbee2mqtt,
-        zigbee2mqtt_version: 1.36.0 }
+        zigbee2mqtt_version: 1.36.1 }
     - { role:                 teslamate,
         teslamateapi_version: 1.17.2,
         teslamate_version:    1.28.5 }
