@@ -1,6 +1,0 @@
-all:
-  hosts:
-    pi4:
-      ansible_host: 192.168.1.10
-      ansible_ssh_user: mihai
-      configure_trim: yes
