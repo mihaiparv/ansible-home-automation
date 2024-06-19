@@ -42,4 +42,9 @@
     - docker_compose
     - system_bluetooth_fix
     - role: system
-      system_required_users: []
+      system_required_users:
+        - name: "{{ teslasolarchargerbleapi_username }}"
+          id: "{{ teslasolarchargerbleapi_uid }}"
+    - role: teslasolarchargerbleapi
+      teslasolarchargerbleapi_version: latest
+

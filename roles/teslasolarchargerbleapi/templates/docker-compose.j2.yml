@@ -1,0 +1,17 @@
+services:
+  bleapi:
+    image: ghcr.io/pkuehnel/teslasolarchargerbleapi:{{ teslasolarchargerbleapi_version }}
+    container_name: TeslaSolarChargerBleApi
+    privileged: true
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - ASPNETCORE_URLS=http://+:7210
+    volumes:
+      - "{{ teslasolarchargerbleapi_home}}/externalFiles:/externalFiles"
+      - /var/run/dbus:/var/run/dbus
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation

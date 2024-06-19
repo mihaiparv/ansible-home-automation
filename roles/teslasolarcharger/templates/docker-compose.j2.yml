@@ -9,6 +9,7 @@ services:
       - Serilog__MinimumLevel__Default=Information
       - TZ=Europe/Bucharest ##You can change your Timezone here
       - UseFleetApi=false
+      - BleBaseUrl=http://{{ hostvars['pi0']['ansible_host'] }}:7210/api
     ports:
       - 7190:80
     networks:

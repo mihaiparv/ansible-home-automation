@@ -1,0 +1,35 @@
+- name: ensure necessary local dirs on remote machines exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ teslasolarchargerbleapi_username }}"
+    group: "{{ teslasolarchargerbleapi_username }}"
+    mode: 0755
+  become: yes
+  with_items:
+    - "{{ teslasolarchargerbleapi_home }}"
+    - "{{ teslasolarchargerbleapi_home }}/externalFiles"
+  tags:
+    - teslasolarchargerbleapi
+
+- name: ensure the stack definition is up-to-date
+  template:
+    src: docker-compose.j2.yml
+    dest: "{{ teslasolarchargerbleapi_home }}/docker-compose.yml"
+    owner: "{{ teslasolarchargerbleapi_username }}"
+    group: "{{ teslasolarchargerbleapi_username }}"
+    mode: 0644
+  become: yes
+  notify:
+    - restart teslasolarchargerbleapi
+  tags:
+    - teslasolarchargerbleapi
+
+- name: ensure teslasolarchargerbleapi service is enabled to start at boot
+  systemd:
+    name: "docker-compose@teslasolarchargerbleapi"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - teslasolarchargerbleapi

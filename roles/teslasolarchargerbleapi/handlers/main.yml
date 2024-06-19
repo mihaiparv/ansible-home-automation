@@ -1,0 +1,6 @@
+---
+- name: restart teslasolarchargerbleapi
+  systemd:
+    name: "docker-compose@teslasolarchargerbleapi"
+    state: restarted
+  become: true

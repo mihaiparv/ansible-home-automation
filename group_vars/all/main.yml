@@ -19,6 +19,9 @@ teslamate_uid: 5500
 teslasolarcharger_username: teslasolarcharger
 teslasolarcharger_uid: 6500
 
+teslasolarchargerbleapi_username: teslasolarchargerbleapi
+teslasolarchargerbleapi_uid: 6600
+
 smokeping_username: smokeping
 smokeping_uid: 7500
 
