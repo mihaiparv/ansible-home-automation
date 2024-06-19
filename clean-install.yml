@@ -40,5 +40,6 @@
     - role: ansible_docker
       docker_version: "5:26.1.4-1~debian.12~bookworm"
     - docker_compose
+    - system_bluetooth_fix
     - role: system
       system_required_users: []

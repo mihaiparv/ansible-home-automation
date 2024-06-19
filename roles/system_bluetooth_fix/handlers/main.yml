@@ -1,0 +1,6 @@
+- name: Restart bluetooth
+  systemd:
+    name: bluetooth
+    state: restarted
+    daemon_reload: true
+  become: true

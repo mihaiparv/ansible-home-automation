@@ -1,0 +1,19 @@
+- name: Ensure the folder structure for overriding bluetooth service config exists
+  file:
+    path: /etc/systemd/system/bluetooth.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+
+- name: Ensure the override config for the bluetooth service is set-up
+  copy:
+    src: 01-disable-sap-plugin.conf
+    dest: /etc/systemd/system/bluetooth.service.d
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  notify:
+    - Restart bluetooth
