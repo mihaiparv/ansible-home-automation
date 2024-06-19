@@ -7,6 +7,7 @@ services:
     network_mode: host
     environment:
       - ASPNETCORE_URLS=http://+:7210
+      - TZ=Europe/Bucharest ##You can change your Timezone here
     volumes:
       - "{{ teslasolarchargerbleapi_home}}/externalFiles:/externalFiles"
       - /var/run/dbus:/var/run/dbus
