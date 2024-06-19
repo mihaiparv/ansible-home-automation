@@ -1,3 +1,2 @@
 ---
-dependencies:
-  - ansible_docker_compose
+dependencies: []
