@@ -3,23 +3,7 @@
     name: "{{ item.name }}"
     gid: "{{ item.id }}"
     state: present
-  loop:
-    - name: "{{ mosquitto_username }}"
-      id: "{{ mosquitto_uid }}"
-    - name: "{{ openhab_username }}"
-      id: "{{ openhab_uid }}"
-    - name: "{{ homeassistant_username }}"
-      id: "{{ homeassistant_uid }}"
-    - name: "{{ zigbee2mqtt_username }}"
-      id: "{{ zigbee2mqtt_uid }}"
-    - name: "{{ evcc_username }}"
-      id: "{{ evcc_uid }}"
-    - name: "{{ teslamate_username }}"
-      id: "{{ teslamate_uid }}"
-    - name: "{{ teslasolarcharger_username }}"
-      id: "{{ teslasolarcharger_uid }}"
-    - name: "{{ smokeping_username }}"
-      id: "{{ smokeping_uid }}"
+  loop: "{{ system_required_users }}"
   become: yes
   tags:
     - system
@@ -31,23 +15,7 @@
     uid: "{{ item.id }}"
     groups: "{{ item.name }},docker"
     append: yes
-  loop:
-    - name: "{{ mosquitto_username }}"
-      id: "{{ mosquitto_uid }}"
-    - name: "{{ openhab_username }}"
-      id: "{{ openhab_uid }}"
-    - name: "{{ homeassistant_username }}"
-      id: "{{ homeassistant_uid }}"
-    - name: "{{ zigbee2mqtt_username }}"
-      id: "{{ zigbee2mqtt_uid }}"
-    - name: "{{ evcc_username }}"
-      id: "{{ evcc_uid }}"
-    - name: "{{ teslamate_username }}"
-      id: "{{ teslamate_uid }}"
-    - name: "{{ teslasolarcharger_username }}"
-      id: "{{ teslasolarcharger_uid }}"
-    - name: "{{ smokeping_username }}"
-      id: "{{ smokeping_uid }}"
+  loop: "{{ system_required_users }}"
   become: yes
   tags:
     - system
@@ -56,14 +24,7 @@
   package:
     name:
       - python3-pip
-  become: yes
-  tags:
-    - system
-
-- name: ensure the required python dependencies exist
-  pip:
-    name:
-      - docker
+      - python3-docker
   become: yes
   tags:
     - system
@@ -76,7 +37,7 @@
     - system
 
 - include_tasks: configure-trim.yml
-  when: configure_trim
+  when: system_configure_trim
   tags:
     - system
     - trim
