@@ -1,4 +1,3 @@
-version: "3"
 services:
   teslasolarcharger:
     image: pkuehnel/teslasolarcharger:{{ teslasolarcharger_version }}
