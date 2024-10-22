@@ -34,6 +34,7 @@
       teslasolarcharger_version: 2.30.0
     - role: smokeping
       smokeping_version: 2.8.2-r3-ls99
+    - role: tailscale
 
 - hosts: pi0
   roles:
