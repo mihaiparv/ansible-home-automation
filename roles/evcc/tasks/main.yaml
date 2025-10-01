@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ evcc_username }}"
@@ -13,7 +13,7 @@
     - evcc
 
 - name: ensure the configuration is up-to-date
-  template:
+  ansible.builtin.template:
     src: evcc.yaml.j2
     dest: "{{ evcc_home }}/evcc.yaml"
     owner: "{{ evcc_username }}"
@@ -26,7 +26,7 @@
     - evcc
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ evcc_home }}/docker-compose.yml"
     owner: "{{ evcc_username }}"
@@ -39,7 +39,7 @@
     - evcc
 
 - name: ensure evcc service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@evcc"
     enabled: true
     daemon_reload: true

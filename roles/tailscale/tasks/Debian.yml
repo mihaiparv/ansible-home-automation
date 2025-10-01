@@ -1,5 +1,5 @@
 - name: ensure the tailscale repo key is available
-  get_url:
+  ansible.builtin.get_url:
     url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release | lower }}.noarmor.gpg"
     dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
     mode: 0644
@@ -9,7 +9,7 @@
   tags: tailscale
 
 - name: ensure that the tailscale repo is available
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }} {{ ansible_lsb.codename }} main"
     state: present
     update_cache: false
@@ -17,7 +17,7 @@
   tags: tailscale
 
 - name: ensure tailscale is installed
-  apt:
+  ansible.builtin.apt:
     name:
       - tailscale
       - tailscale-archive-keyring
@@ -27,7 +27,7 @@
   tags: tailscale
 
 - name: ensure tailscale service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: tailscaled
     enabled: true
     daemon_reload: true

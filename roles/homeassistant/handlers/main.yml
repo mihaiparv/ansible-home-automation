@@ -1,6 +1,6 @@
 ---
 - name: restart homeassistant
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@homeassistant"
     state: restarted
   become: true

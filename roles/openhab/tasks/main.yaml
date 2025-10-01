@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ openhab_username }}"
@@ -18,7 +18,7 @@
     - openhab
 
 - name: ensure the various things / items / etc are configured
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ openhab_home }}/conf/{{ item.path }}"
     owner: "{{ openhab_username }}"
@@ -32,7 +32,7 @@
     - openhab-config
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ openhab_home }}/docker-compose.yml"
     owner: "{{ openhab_username }}"
@@ -43,7 +43,7 @@
     - openhab
 
 - name: ensure openhab service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@openhab"
     enabled: true
     daemon_reload: true

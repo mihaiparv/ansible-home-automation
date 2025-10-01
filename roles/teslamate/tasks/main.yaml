@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ teslamate_username }}"
@@ -12,7 +12,7 @@
     - teslamate
 
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ teslamate_username }}"
@@ -27,7 +27,7 @@
     - teslamate
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ teslamate_home }}/docker-compose.yml"
     owner: "{{ teslamate_username }}"
@@ -40,7 +40,7 @@
     - teslamate
 
 - name: ensure teslamate service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@teslamate"
     enabled: true
     daemon_reload: true

@@ -1,6 +1,6 @@
 ---
 - name: restart evcc
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@evcc"
     state: restarted
   become: true

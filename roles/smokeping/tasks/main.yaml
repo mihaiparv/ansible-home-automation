@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ smokeping_username }}"
@@ -14,7 +14,7 @@
     - smokeping
 
 - name: ensure service config is up-to-date
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: "{{ smokeping_home }}/config/{{ item }}"
     owner: "{{ smokeping_username }}"
@@ -29,7 +29,7 @@
     - smokeping
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ smokeping_home }}/docker-compose.yml"
     owner: "{{ smokeping_username }}"
@@ -42,7 +42,7 @@
     - smokeping
 
 - name: ensure smokeping service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@smokeping"
     enabled: true
     daemon_reload: true

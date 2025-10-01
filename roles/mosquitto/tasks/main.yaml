@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ mosquitto_username }}"
@@ -16,7 +16,7 @@
     - mosquitto
 
 - name: ensure the config is up-to-date
-  template:
+  ansible.builtin.template:
     src: mosquitto.conf.j2
     dest: "{{ mosquitto_home }}/config/mosquitto.conf"
     owner: "{{ mosquitto_username }}"
@@ -29,7 +29,7 @@
     - mosquitto
 
 - name: ensure the auth config is up-to-date
-  template:
+  ansible.builtin.template:
     src: passwd.j2
     dest: "{{ mosquitto_home }}/etc/passwd"
     owner: "{{ mosquitto_username }}"
@@ -42,7 +42,7 @@
     - mosquitto
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ mosquitto_home }}/docker-compose.yml"
     owner: "{{ mosquitto_username }}"
@@ -55,7 +55,7 @@
     - mosquitto
 
 - name: ensure mosquitto service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@mosquitto"
     enabled: yes
     daemon_reload: yes

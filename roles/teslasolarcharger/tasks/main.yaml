@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ teslasolarcharger_username }}"
@@ -13,7 +13,7 @@
     - teslasolarcharger
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ teslasolarcharger_home }}/docker-compose.yml"
     owner: "{{ teslasolarcharger_username }}"
@@ -26,7 +26,7 @@
     - teslasolarcharger
 
 - name: ensure teslasolarcharger service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@teslasolarcharger"
     enabled: true
     daemon_reload: true

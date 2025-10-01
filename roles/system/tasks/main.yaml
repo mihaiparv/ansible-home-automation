@@ -1,5 +1,5 @@
 - name: ensure the required groups exists
-  group:
+  ansible.builtin.group:
     name: "{{ item.name }}"
     gid: "{{ item.id }}"
     state: present
@@ -9,7 +9,7 @@
     - system
 
 - name: ensure the required users exists
-  user:
+  ansible.builtin.user:
     name: "{{ item.name }}"
     shell: /sbin/nologin
     uid: "{{ item.id }}"
@@ -21,7 +21,7 @@
     - system
 
 - name: ensure the required system dependencies exist
-  package:
+  ansible.builtin.package:
     name:
       - python3-pip
       - python3-docker
@@ -30,13 +30,13 @@
     - system
 
 - name: ensure the home_automation docker network exists
-  docker_network:
+  community.docker.docker_network:
     name: home_automation
   become: yes
   tags:
     - system
 
-- include_tasks: configure-trim.yml
+- ansible.builtin.include_tasks: configure-trim.yml
   when: system_configure_trim
   tags:
     - system

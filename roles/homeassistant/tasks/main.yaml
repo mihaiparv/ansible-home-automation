@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ homeassistant_username }}"
@@ -14,7 +14,7 @@
     - homeassistant
 
 - name: ensure the run script is up-to-date
-  template:
+  ansible.builtin.template:
     src: run
     dest: "{{ homeassistant_home }}/docker"
     owner: "{{ homeassistant_username }}"
@@ -25,7 +25,7 @@
     - homeassistant
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ homeassistant_home }}/docker-compose.yml"
     owner: "{{ homeassistant_username }}"
@@ -38,7 +38,7 @@
     - homeassistant
 
 - name: ensure homeassistant service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@homeassistant"
     enabled: true
     daemon_reload: true

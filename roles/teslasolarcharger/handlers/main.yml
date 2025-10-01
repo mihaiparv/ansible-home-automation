@@ -1,6 +1,6 @@
 ---
 - name: restart teslasolarcharger
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@teslasolarcharger"
     state: restarted
   become: true

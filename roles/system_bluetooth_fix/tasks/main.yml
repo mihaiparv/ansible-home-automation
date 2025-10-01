@@ -1,5 +1,5 @@
 - name: Ensure the folder structure for overriding bluetooth service config exists
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/bluetooth.service.d
     state: directory
     owner: root
@@ -8,7 +8,7 @@
   become: true
 
 - name: Ensure the override config for the bluetooth service is set-up
-  copy:
+  ansible.builtin.copy:
     src: 01-disable-sap-plugin.conf
     dest: /etc/systemd/system/bluetooth.service.d
     owner: root

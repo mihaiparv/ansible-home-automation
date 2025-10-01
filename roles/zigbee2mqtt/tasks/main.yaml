@@ -1,5 +1,5 @@
 - name: ensure necessary local dirs on remote machines exist
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "{{ zigbee2mqtt_username }}"
@@ -13,7 +13,7 @@
     - zigbee2mqtt
 
 # - name: ensure the configuration is up-to-date
-#   template:
+#   ansible.builtin.template:
 #     src: configuration.yaml.j2
 #     dest: "{{ zigbee2mqtt_home }}/data/configuration.yaml"
 #     owner: "{{ zigbee2mqtt_username }}"
@@ -26,7 +26,7 @@
 #     - zigbee2mqtt
 
 - name: ensure the stack definition is up-to-date
-  template:
+  ansible.builtin.template:
     src: docker-compose.j2.yml
     dest: "{{ zigbee2mqtt_home }}/docker-compose.yml"
     owner: "{{ zigbee2mqtt_username }}"
@@ -39,7 +39,7 @@
     - zigbee2mqtt
 
 - name: ensure zigbee2mqtt service is enabled to start at boot
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@zigbee2mqtt"
     enabled: true
     daemon_reload: true

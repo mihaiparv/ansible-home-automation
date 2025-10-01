@@ -1,6 +1,6 @@
 ---
 - name: restart teslamate
-  systemd:
+  ansible.builtin.systemd:
     name: "docker-compose@teslamate"
     state: restarted
   become: true

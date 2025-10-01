@@ -1,6 +1,6 @@
 ---
 - name: ensure udev rule is configured to set unmap provisioning mode
-  copy:
+  ansible.builtin.copy:
     dest: /etc/udev/rules.d/10-trim.rules
     content: ACTION=="add|change", ATTRS{idVendor}=="174c", ATTRS{idProduct}=="55aa", SUBSYSTEM=="scsi_disk", ATTR{provisioning_mode}="unmap"
   become: yes
@@ -10,7 +10,7 @@
     - trim
 
 - name: ensure udev rules are reloaded when the rules have changed
-  shell: "udevadm control --reload-rules && udevadm trigger"
+  ansible.builtin.shell: "udevadm control --reload-rules && udevadm trigger"
   when: configure_umap_rule_result.changed
   become: yes
   tags:
@@ -18,7 +18,7 @@
     - trim
 
 - name: determine the maximum unmap LBA count for the drive
-  command: sg_vpd -p bl /dev/sda
+  ansible.builtin.command: sg_vpd -p bl /dev/sda
   become: yes
   changed_when: no
   register: sg_vpd_cmd_output
@@ -26,14 +26,14 @@
     - system
     - trim
 
-- set_fact:
+- ansible.builtin.set_fact:
     max_unmap_lba_count: "{{ sg_vpd_cmd_output.stdout | regex_search('Maximum unmap LBA count: (.+)', '\\1') | first }}"
   tags:
     - system
     - trim
 
 - name: determine the block length for the drive
-  command: sg_readcap -l /dev/sda
+  ansible.builtin.command: sg_readcap -l /dev/sda
   become: yes
   changed_when: no
   register: sg_redcap_cmd_output
@@ -41,20 +41,20 @@
     - system
     - trim
 
-- set_fact:
+- ansible.builtin.set_fact:
     logical_block_length: "{{ sg_redcap_cmd_output.stdout | regex_search('Logical block length=(.+) bytes', '\\1') | first }}"
   tags:
     - system
     - trim
 
-- shell: "echo {{ max_unmap_lba_count|int * logical_block_length|int }} > /sys/block/sda/queue/discard_max_bytes"
+- ansible.builtin.shell: "echo {{ max_unmap_lba_count|int * logical_block_length|int }} > /sys/block/sda/queue/discard_max_bytes"
   become: yes
   tags:
     - system
     - trim
 
 - name: ensure trim timer is enabled
-  systemd:
+  ansible.builtin.systemd:
     name: fstrim.timer
     state: started
     enabled: yes

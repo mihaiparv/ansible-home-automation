@@ -1,5 +1,5 @@
 - name: Restart bluetooth
-  systemd:
+  ansible.builtin.systemd:
     name: bluetooth
     state: restarted
     daemon_reload: true
