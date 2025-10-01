@@ -1,7 +1,7 @@
 all:
   hosts:
     groovy64:
-      ansible_host: 192.168.100.10
+      ansible_host: 192.168.1.66
       ansible_ssh_user: vagrant
       ansible_ssh_private_key_file: ./.vagrant/machines/default/virtualbox/private_key
       configure_trim: no
