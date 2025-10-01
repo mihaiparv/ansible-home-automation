@@ -49,3 +49,6 @@
     - role: teslasolarchargerbleapi
       teslasolarchargerbleapi_version: latest
 
+- hosts: hp260g2
+  roles:
+    - role: tailscale
