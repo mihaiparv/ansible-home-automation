@@ -24,9 +24,9 @@
     - role: mosquitto
       mosquitto_version: 2.0
     - role: homeassistant
-      homeassistant_version: 2025.9.4
+      homeassistant_version: 2025.10.4
     - role: zigbee2mqtt
-      zigbee2mqtt_version: 2.6.1
+      zigbee2mqtt_version: 2.6.2
     - role: teslamate
       teslamateapi_version: 1.20.2
       teslamate_version: 1.32.0
