@@ -1,7 +1,7 @@
 - hosts: pi4
   roles:
     - role: ansible_docker
-      docker_version: "5:28.4.0-1~ubuntu.22.04~jammy"
+      docker_version: "5:29.0.2-1~ubuntu.22.04~jammy"
     - docker_compose
     - role: system
       system_required_users:
@@ -24,9 +24,9 @@
     - role: mosquitto
       mosquitto_version: 2.0
     - role: homeassistant
-      homeassistant_version: 2025.10.4
+      homeassistant_version: 2025.11.2
     - role: zigbee2mqtt
-      zigbee2mqtt_version: 2.6.2
+      zigbee2mqtt_version: 2.6.3
     - role: teslamate
       teslamateapi_version: 1.20.2
       teslamate_version: 1.32.0
@@ -39,7 +39,7 @@
 - hosts: pi0
   roles:
     - role: ansible_docker
-      docker_version: "5:28.4.0-1~debian.12~bookworm"
+      docker_version: "5:29.0.2-1~debian.13~trixie"
     - docker_compose
     - system_bluetooth_fix
     - role: system
