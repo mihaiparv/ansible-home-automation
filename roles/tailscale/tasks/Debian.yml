@@ -35,7 +35,7 @@
   tags: tailscale
 
 - name: enable IPv4 IP forwading
-  ansible.builtin.sysctl:
+  ansible.posix.sysctl:
     name: net.ipv4.ip_forward
     value: 1
     sysctl_set: yes
@@ -45,7 +45,7 @@
   tags: tailscale
 
 - name: enable IPv6 IP forwading
-  ansible.builtin.sysctl:
+  ansible.posix.sysctl:
     name: net.ipv6.conf.all.forwarding
     value: 1
     sysctl_set: yes
