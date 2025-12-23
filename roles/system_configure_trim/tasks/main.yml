@@ -6,7 +6,6 @@
   become: yes
   register: configure_umap_rule_result
   tags:
-    - system
     - trim
 
 - name: ensure udev rules are reloaded when the rules have changed
@@ -14,7 +13,6 @@
   when: configure_umap_rule_result.changed
   become: yes
   tags:
-    - system
     - trim
 
 - name: determine the maximum unmap LBA count for the drive
@@ -23,13 +21,11 @@
   changed_when: no
   register: sg_vpd_cmd_output
   tags:
-    - system
     - trim
 
 - ansible.builtin.set_fact:
     max_unmap_lba_count: "{{ sg_vpd_cmd_output.stdout | regex_search('Maximum unmap LBA count: (.+)', '\\1') | first }}"
   tags:
-    - system
     - trim
 
 - name: determine the block length for the drive
@@ -38,19 +34,16 @@
   changed_when: no
   register: sg_redcap_cmd_output
   tags:
-    - system
     - trim
 
 - ansible.builtin.set_fact:
     logical_block_length: "{{ sg_redcap_cmd_output.stdout | regex_search('Logical block length=(.+) bytes', '\\1') | first }}"
   tags:
-    - system
     - trim
 
 - ansible.builtin.shell: "echo {{ max_unmap_lba_count|int * logical_block_length|int }} > /sys/block/sda/queue/discard_max_bytes"
   become: yes
   tags:
-    - system
     - trim
 
 - name: ensure trim timer is enabled
@@ -60,5 +53,4 @@
     enabled: yes
   become: yes
   tags:
-    - system
     - trim

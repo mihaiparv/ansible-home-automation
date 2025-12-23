@@ -35,9 +35,3 @@
   become: yes
   tags:
     - system
-
-- ansible.builtin.include_tasks: configure-trim.yml
-  when: system_configure_trim
-  tags:
-    - system
-    - trim

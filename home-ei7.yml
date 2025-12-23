@@ -3,11 +3,9 @@ all:
     pi4:
       ansible_host: 192.168.1.10
       ansible_ssh_user: mihai
-      system_configure_trim: yes
     pi0:
       ansible_host: 192.168.1.15
       ansible_ssh_user: mihai
-      system_configure_trim: false
     hp260g2:
       ansible_host: 192.168.1.199
       ansible_python_interpreter: /usr/bin/python3.11
