@@ -11,5 +11,10 @@ services:
       - PGID={{ homeassistant_uid }}
       - UMASK=007
       - PACKAGES=iputils
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt:
+      - no-new-privileges
     restart: unless-stopped
     network_mode: host

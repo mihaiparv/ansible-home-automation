@@ -13,6 +13,7 @@
   tags:
     - homeassistant
 
+# https://github.com/tribut/homeassistant-docker-venv
 - name: ensure the run script is up-to-date
   ansible.builtin.template:
     src: run
@@ -21,6 +22,8 @@
     group: "{{ homeassistant_username }}"
     mode: 0755
   become: yes
+  notify:
+    - restart homeassistant
   tags:
     - homeassistant
 
