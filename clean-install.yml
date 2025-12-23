@@ -53,3 +53,16 @@
 - hosts: hp260g2
   roles:
     - role: tailscale
+
+- hosts: micro10
+  roles:
+    - role: ansible_docker
+      docker_version: "5:29.1.3-1~ubuntu.24.04~noble"
+    - docker_compose
+    - role: system
+      system_required_users:
+        - name: "{{ homeassistant_username }}"
+          id: "{{ homeassistant_uid }}"
+    - role: homeassistant
+      homeassistant_version: 2025.12.4
+    - role: tailscale

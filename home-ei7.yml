@@ -10,3 +10,7 @@ all:
       ansible_host: 192.168.1.199
       ansible_python_interpreter: /usr/bin/python3.11
       ansible_ssh_user: mihai
+    micro10:
+      ansible_host: 192.168.1.222
+      ansible_python_interpreter: /usr/bin/python3.12
+      ansible_ssh_user: mihai
