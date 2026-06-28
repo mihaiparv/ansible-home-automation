@@ -5,7 +5,7 @@
     owner: "{{ teslamate_username }}"
     group: "{{ teslamate_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ teslamate_home }}"
   tags:
@@ -18,7 +18,7 @@
     owner: "{{ teslamate_username }}"
     group: "{{ teslamate_username }}"
     mode: 0777
-  become: yes
+  become: true
   with_items:
     - "{{ teslamate_home }}/import"
     - "{{ teslamate_home }}/db-data"
@@ -33,7 +33,7 @@
     owner: "{{ teslamate_username }}"
     group: "{{ teslamate_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart teslamate
   tags:
