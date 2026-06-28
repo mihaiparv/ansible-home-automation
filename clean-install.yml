@@ -11,8 +11,6 @@
           id: "{{ openhab_uid }}"
         - name: "{{ homeassistant_username }}"
           id: "{{ homeassistant_uid }}"
-        - name: "{{ zigbee2mqtt_username }}"
-          id: "{{ zigbee2mqtt_uid }}"
         - name: "{{ evcc_username }}"
           id: "{{ evcc_uid }}"
         - name: "{{ teslasolarcharger_username }}"
@@ -22,8 +20,6 @@
       mosquitto_version: 2.0
     - role: homeassistant
       homeassistant_version: 2026.4.3
-    - role: zigbee2mqtt
-      zigbee2mqtt_version: 2.9.2
     - role: teslasolarcharger
       teslasolarcharger_version: 2.30.0
     - role: tailscale
@@ -54,6 +50,8 @@
           id: "{{ teslamate_uid }}"
         - name: "{{ victoriametrics_username }}"
           id: "{{ victoriametrics_uid }}"
+        - name: "{{ zigbee2mqtt_username }}"
+          id: "{{ zigbee2mqtt_uid }}"
     - role: smokeping
       smokeping_version: 2.9.0-r0-ls174
     - role: tailscale
@@ -63,6 +61,8 @@
     - role: victoriametrics
       victoria_logs_version: 1.51.0
       victoria_metrics_version: 1.146.0
+    - role: zigbee2mqtt
+      zigbee2mqtt_version: 2.12.0
 
 - hosts: micro10
   roles:
