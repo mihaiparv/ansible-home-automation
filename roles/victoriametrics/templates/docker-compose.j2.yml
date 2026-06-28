@@ -17,6 +17,29 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - "{{ victoriametrics_home }}/conf/fluent.conf:/fluentd/etc/fluent.conf"
 
+  # Grafana instance configured with VictoriaLogs and VictoriaMetrics as datasources
+  vlgrafana:
+    image: grafana/grafana:12.4.5
+    depends_on:
+      - "victoriametrics"
+      - "victorialogs"
+    environment:
+      - "GF_INSTALL_PLUGINS=victoriametrics-logs-datasource"
+    networks:
+      - home_automation
+    ports:
+      - 3010:3000
+    restart: unless-stopped
+    volumes:
+      - "{{ victoriametrics_home }}/grafana-data:/var/lib/grafana"
+      - "{{ victoriametrics_home }}/conf/dashboards:/var/lib/grafana/dashboards"
+      - type: bind
+        source: "{{ victoriametrics_home }}/conf/dashboards.yml"
+        target: /etc/grafana/provisioning/dashboards/dashboards.yml
+      - type: bind
+        source: "{{ victoriametrics_home }}/conf/datasources.yml"
+        target: /etc/grafana/provisioning/datasources/datasources.yml
+
   vlagent:
     command:
       - '--remoteWrite.tmpDataPath=/vlagent'
@@ -52,18 +75,22 @@ services:
   victoriametrics:
     image: victoriametrics/victoria-metrics:v{{ victoria_metrics_version }}
     command:
-      - -storageDataPath=/vmsingle
+      - --storageDataPath=/vmsingle
+      - --promscrape.config=/etc/prometheus/prometheus.yml
       - -loggerFormat=json
     networks:
       - home_automation
     volumes:
+      - type: bind
+        source: "{{ victoriametrics_home }}/conf/prometheus.yml"
+        target: /etc/prometheus/prometheus.yml
       - "{{ victoriametrics_home }}/metrics-data:/vmsingle"
 
   vmauth:
     command: -auth.config=/etc/vmauth.yml
     depends_on:
-      victorialogs:
-        condition: service_started
+      - "victoriametrics"
+      - "victorialogs"
     image: docker.io/victoriametrics/vmauth:v{{ victoria_metrics_version }}
     networks:
       - home_automation

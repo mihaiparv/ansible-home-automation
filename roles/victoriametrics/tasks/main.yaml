@@ -22,6 +22,8 @@
   with_items:
     - "{{ victoriametrics_home }}/agent"
     - "{{ victoriametrics_home }}/conf"
+    - "{{ victoriametrics_home }}/conf/dashboards"
+    - "{{ victoriametrics_home }}/grafana-data"
     - "{{ victoriametrics_home }}/logs-data"
     - "{{ victoriametrics_home }}/metrics-data"
   tags:
@@ -38,7 +40,14 @@
   notify:
     - restart victoriametrics
   with_items:
+    - dashboards/victorialogs-internal.json
+    - dashboards/victorialogs.json
+    - dashboards/victoriametrics.json
+    - dashboards/vlagent.json
+    - dashboards.yml
+    - datasources.yml
     - fluent.conf
+    - prometheus.yml
     - vmauth.yml
   tags:
     - victoriametrics
