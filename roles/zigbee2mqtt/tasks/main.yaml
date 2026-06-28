@@ -5,7 +5,7 @@
     owner: "{{ zigbee2mqtt_username }}"
     group: "{{ zigbee2mqtt_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ zigbee2mqtt_home }}"
     - "{{ zigbee2mqtt_home }}/data"
@@ -19,7 +19,7 @@
 #     owner: "{{ zigbee2mqtt_username }}"
 #     group: "{{ zigbee2mqtt_username }}"
 #     mode: 0644
-#   become: yes
+#   become: true
 #   notify:
 #     - restart zigbee2mqtt
 #   tags:
@@ -32,7 +32,7 @@
     owner: "{{ zigbee2mqtt_username }}"
     group: "{{ zigbee2mqtt_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart zigbee2mqtt
   tags:
