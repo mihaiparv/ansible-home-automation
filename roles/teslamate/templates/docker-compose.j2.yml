@@ -11,7 +11,7 @@ services:
       - DATABASE_PASS={{ teslamate_database_password }}
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
-      - MQTT_HOST=host.docker.internal
+      - MQTT_HOST=192.168.1.10
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
       - TZ=Europe/Bucharest
@@ -38,7 +38,7 @@ services:
       - DATABASE_PASS={{ teslamate_database_password }}
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
-      - MQTT_HOST=host.docker.internal
+      - MQTT_HOST=192.168.1.10
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
       - ENABLE_COMMANDS=true
@@ -53,7 +53,7 @@ services:
       - home_automation
 
   database:
-    image: postgres:15
+    image: postgres:18-trixie
     container_name: database
     restart: unless-stopped
     environment:
@@ -63,7 +63,7 @@ services:
     networks:
       - home_automation
     volumes:
-      - "{{ teslamate_home }}/db-data:/var/lib/postgresql/data"
+      - "{{ teslamate_home }}/db-data:/var/lib/postgresql"
 
   grafana:
     image: teslamate/grafana:{{ teslamate_version }}
