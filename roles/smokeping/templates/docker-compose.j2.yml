@@ -7,6 +7,11 @@ services:
       - PUID={{ smokeping_uid }}
       - PGID={{ smokeping_uid }}
       - TZ=Europe/Bucharest
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     ports:
       - 7080:80
     networks:

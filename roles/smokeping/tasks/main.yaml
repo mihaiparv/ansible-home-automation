@@ -5,7 +5,7 @@
     owner: "{{ smokeping_username }}"
     group: "{{ smokeping_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ smokeping_home }}"
     - "{{ smokeping_home }}/config"
@@ -20,7 +20,7 @@
     owner: "{{ smokeping_username }}"
     group: "{{ smokeping_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart smokeping
   with_items:
@@ -35,7 +35,7 @@
     owner: "{{ smokeping_username }}"
     group: "{{ smokeping_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart smokeping
   tags:
