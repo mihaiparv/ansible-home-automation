@@ -13,15 +13,11 @@
           id: "{{ homeassistant_uid }}"
         - name: "{{ evcc_username }}"
           id: "{{ evcc_uid }}"
-        - name: "{{ teslasolarcharger_username }}"
-          id: "{{ teslasolarcharger_uid }}"
     - role: system_configure_trim
     - role: mosquitto
       mosquitto_version: 2.0
     - role: homeassistant
       homeassistant_version: 2026.4.3
-    - role: teslasolarcharger
-      teslasolarcharger_version: 2.30.0
     - role: tailscale
 
 - hosts: pi0
@@ -48,6 +44,8 @@
           id: "{{ smokeping_uid }}"
         - name: "{{ teslamate_username }}"
           id: "{{ teslamate_uid }}"
+        - name: "{{ teslasolarcharger_username }}"
+          id: "{{ teslasolarcharger_uid }}"
         - name: "{{ victoriametrics_username }}"
           id: "{{ victoriametrics_uid }}"
         - name: "{{ zigbee2mqtt_username }}"
@@ -58,6 +56,8 @@
     - role: teslamate
       teslamateapi_version: 1.24.3
       teslamate_version: 4.0.1
+    - role: teslasolarcharger
+      teslasolarcharger_version: 2.30.0
     - role: victoriametrics
       victoria_logs_version: 1.51.0
       victoria_metrics_version: 1.146.0

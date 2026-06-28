@@ -1,22 +1,30 @@
 services:
   teslasolarcharger:
-    image: pkuehnel/teslasolarcharger:{{ teslasolarcharger_version }}
     container_name: teslasolarcharger
-    restart: unless-stopped
     environment:
-#      - Serilog__MinimumLevel__Default=Verbose #uncomment this line and recreate container with docker-compose up -d for more detailed logs
+      # uncomment this line and recreate container with docker-compose up -d for more detailed logs
+      # - Serilog__MinimumLevel__Default=Verbose
       - Serilog__MinimumLevel__Default=Information
+      - Serilog__MinimumLevel__Override__TeslaSolarCharger.Server.Services.TeslaFleetApiService=Fatal
       - TZ=Europe/Bucharest ##You can change your Timezone here
-      # - UseFleetApi=false
+      - UseFleetApi=False
+      - SendTeslaApiStatsToBackend=False
       - BleBaseUrl=http://{{ hostvars['pi0']['ansible_host'] }}:7210/api
-    ports:
-      - 7190:80
-    networks:
-      - home_automation
-    volumes:
-      - "{{ teslasolarcharger_home }}/configs:/app/configs"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    image: pkuehnel/teslasolarcharger:{{ teslasolarcharger_version }}
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
+    networks:
+      - home_automation
+    ports:
+      - 7190:80
+    restart: unless-stopped
+    volumes:
+      - "{{ teslasolarcharger_home }}/configs:/app/configs"
 
 networks:
   home_automation:

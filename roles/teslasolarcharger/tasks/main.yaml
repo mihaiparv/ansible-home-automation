@@ -5,7 +5,7 @@
     owner: "{{ teslasolarcharger_username }}"
     group: "{{ teslasolarcharger_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ teslasolarcharger_home }}"
     - "{{ teslasolarcharger_home }}/configs"
@@ -19,7 +19,7 @@
     owner: "{{ teslasolarcharger_username }}"
     group: "{{ teslasolarcharger_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart teslasolarcharger
   tags:
