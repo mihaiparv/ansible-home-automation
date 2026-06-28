@@ -1,8 +1,8 @@
 services:
   teslamate:
-    image: teslamate/teslamate:{{ teslamate_version }}
+    cap_drop:
+      - all
     container_name: teslamate
-    restart: unless-stopped
     depends_on:
       - database
     environment:
@@ -15,21 +15,24 @@ services:
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
       - TZ=Europe/Bucharest
-    ports:
-      - 4000:4000
-    volumes:
-      - "{{ teslamate_home }}/import:/opt/app/import"
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    image: teslamate/teslamate:{{ teslamate_version }}
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     networks:
       - home_automation
-    cap_drop:
-      - all
+    ports:
+      - 4000:4000
+    restart: unless-stopped
+    volumes:
+      - "{{ teslamate_home }}/import:/opt/app/import"
 
   teslamateapi:
-    image: tobiasehlert/teslamateapi:{{ teslamateapi_version }}
     container_name: teslamateapi
-    restart: unless-stopped
     depends_on:
       - database
     environment:
@@ -45,39 +48,56 @@ services:
       - COMMANDS_ALL=true
       - API_TOKEN_DISABLE=true
       - TZ=Europe/Bucharest
-    ports:
-      - 8080:8080
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    image: tobiasehlert/teslamateapi:{{ teslamateapi_version }}
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     networks:
       - home_automation
+    ports:
+      - 8080:8080
+    restart: unless-stopped
 
   database:
-    image: postgres:18-trixie
     container_name: database
-    restart: unless-stopped
     environment:
       - POSTGRES_USER={{ teslamate_username }}
       - POSTGRES_PASSWORD={{ teslamate_database_password }}
       - POSTGRES_DB=teslamate
+    image: postgres:18-trixie
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     networks:
       - home_automation
+    restart: unless-stopped
     volumes:
       - "{{ teslamate_home }}/db-data:/var/lib/postgresql"
 
   grafana:
-    image: teslamate/grafana:{{ teslamate_version }}
     container_name: grafana
-    restart: unless-stopped
     environment:
       - DATABASE_USER={{ teslamate_username }}
       - DATABASE_PASS={{ teslamate_database_password }}
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
-    ports:
-      - 3000:3000
+    image: teslamate/grafana:{{ teslamate_version }}
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     networks:
       - home_automation
+    ports:
+      - 3000:3000
+    restart: unless-stopped
     volumes:
       - "{{ teslamate_home }}/grafana-data:/var/lib/grafana"
 
