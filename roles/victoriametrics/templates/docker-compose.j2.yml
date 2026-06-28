@@ -1,0 +1,81 @@
+services:
+  fluentd:
+    depends_on:
+      vlagent:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "nc", "-z", "-n", "-v", "127.0.0.1", "24224"]
+      start_period: 3s
+    image: fluent/fluentd:v{{ fluentd_version }}
+    networks:
+      - home_automation
+    ports:
+      - "5140:5140"
+      - "24224:24224"
+    restart: unless-stopped
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - "{{ victoriametrics_home }}/conf/fluent.conf:/fluentd/etc/fluent.conf"
+
+  vlagent:
+    command:
+      - '--remoteWrite.tmpDataPath=/vlagent'
+      - '--remoteWrite.url=http://victorialogs:9428/insert/native'
+    depends_on:
+      victorialogs:
+        condition: service_started
+    image: victoriametrics/vlagent:v{{ victoria_logs_version }}
+    networks:
+      - home_automation
+    restart: unless-stopped
+    volumes:
+      - "{{ victoriametrics_home }}/agent:/vlagent"
+
+  #  VictoriaLogs instance, a single process responsible for
+  #  storing logs and serving read queries.
+  victorialogs:
+    command:
+      - --storageDataPath=/vlogs
+      - -loggerFormat=json
+      - -retentionPeriod=1y
+    image: victoriametrics/victoria-logs:v{{ victoria_logs_version }}
+    networks:
+      - home_automation
+    ports:
+      - "9428:9428"
+    restart: unless-stopped
+    volumes:
+      - "{{ victoriametrics_home }}/logs-data:/vlogs"
+
+  # VictoriaMetrics instance, a single process responsible for
+  # scraping, storing metrics and serve read requests.
+  victoriametrics:
+    image: victoriametrics/victoria-metrics:v{{ victoria_metrics_version }}
+    command:
+      - -storageDataPath=/vmsingle
+      - -loggerFormat=json
+    networks:
+      - home_automation
+    volumes:
+      - "{{ victoriametrics_home }}/metrics-data:/vmsingle"
+
+  vmauth:
+    command: -auth.config=/etc/vmauth.yml
+    depends_on:
+      victorialogs:
+        condition: service_started
+    image: docker.io/victoriametrics/vmauth:v{{ victoria_metrics_version }}
+    networks:
+      - home_automation
+    ports:
+      - '8427:8427'
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: "{{ victoriametrics_home }}/conf/vmauth.yml"
+        target: /etc/vmauth.yml
+
+networks:
+  home_automation:
+    external: true
+    name: home_automation

@@ -1,0 +1,66 @@
+- name: ensure necessary local dirs on remote machines exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ victoriametrics_username }}"
+    group: "{{ victoriametrics_username }}"
+    mode: 0755
+  become: true
+  with_items:
+    - "{{ victoriametrics_home }}"
+  tags:
+    - victoriametrics
+
+- name: ensure necessary local dirs on remote machines exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ victoriametrics_username }}"
+    group: "{{ victoriametrics_username }}"
+    mode: 0777
+  become: true
+  with_items:
+    - "{{ victoriametrics_home }}/agent"
+    - "{{ victoriametrics_home }}/conf"
+    - "{{ victoriametrics_home }}/logs-data"
+    - "{{ victoriametrics_home }}/metrics-data"
+  tags:
+    - victoriametrics
+
+- name: ensure config is up-to-date
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ victoriametrics_home }}/conf/{{ item }}"
+    owner: "{{ victoriametrics_username }}"
+    group: "{{ victoriametrics_username }}"
+    mode: 0644
+  become: true
+  notify:
+    - restart victoriametrics
+  with_items:
+    - fluent.conf
+    - vmauth.yml
+  tags:
+    - victoriametrics
+
+- name: ensure the stack definition is up-to-date
+  ansible.builtin.template:
+    src: docker-compose.j2.yml
+    dest: "{{ victoriametrics_home }}/docker-compose.yml"
+    owner: "{{ victoriametrics_username }}"
+    group: "{{ victoriametrics_username }}"
+    mode: 0644
+  become: true
+  notify:
+    - restart victoriametrics
+  tags:
+    - victoriametrics
+
+- name: ensure victoriametrics service is enabled to start at boot
+  ansible.builtin.systemd:
+    name: "docker-compose@victoriametrics"
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - victoriametrics

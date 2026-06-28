@@ -25,6 +25,9 @@ teslasolarchargerbleapi_uid: 6600
 smokeping_username: smokeping
 smokeping_uid: 7500
 
+victoriametrics_username: victoriametrics
+victoriametrics_uid: 8500
+
 mosquitto_user: "{{ mosquitto_user_vault }}"
 mosquitto_pass_clear: "{{ mosquitto_pass_vault }}"
 mosquitto_pass_crypt: "{{ mosquitto_pass_crypt_vault }} "

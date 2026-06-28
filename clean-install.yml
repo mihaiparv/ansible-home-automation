@@ -54,10 +54,15 @@
       system_required_users:
         - name: "{{ teslamate_username }}"
           id: "{{ teslamate_uid }}"
+        - name: "{{ victoriametrics_username }}"
+          id: "{{ victoriametrics_uid }}"
     - role: tailscale
     - role: teslamate
       teslamateapi_version: 1.24.3
       teslamate_version: 4.0.1
+    - role: victoriametrics
+      victoria_logs_version: 1.51.0
+      victoria_metrics_version: 1.146.0
 
 - hosts: micro10
   roles:

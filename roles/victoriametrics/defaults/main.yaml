@@ -1,0 +1,4 @@
+fluentd_version: 1.19-2
+victoria_logs_version: 1.51.0
+victoria_metrics_version: 1.146.0
+victoriametrics_home: /opt/victoriametrics
