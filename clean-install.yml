@@ -17,8 +17,6 @@
           id: "{{ evcc_uid }}"
         - name: "{{ teslasolarcharger_username }}"
           id: "{{ teslasolarcharger_uid }}"
-        - name: "{{ smokeping_username }}"
-          id: "{{ smokeping_uid }}"
     - role: system_configure_trim
     - role: mosquitto
       mosquitto_version: 2.0
@@ -28,8 +26,6 @@
       zigbee2mqtt_version: 2.9.2
     - role: teslasolarcharger
       teslasolarcharger_version: 2.30.0
-    - role: smokeping
-      smokeping_version: 2.9.0-r0-ls169
     - role: tailscale
 
 - hosts: pi0
@@ -52,10 +48,14 @@
     - role: docker_compose
     - role: system
       system_required_users:
+        - name: "{{ smokeping_username }}"
+          id: "{{ smokeping_uid }}"
         - name: "{{ teslamate_username }}"
           id: "{{ teslamate_uid }}"
         - name: "{{ victoriametrics_username }}"
           id: "{{ victoriametrics_uid }}"
+    - role: smokeping
+      smokeping_version: 2.9.0-r0-ls174
     - role: tailscale
     - role: teslamate
       teslamateapi_version: 1.24.3
