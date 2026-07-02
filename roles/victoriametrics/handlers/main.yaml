@@ -1,6 +1,6 @@
 ---
 - name: restart victoriametrics
   ansible.builtin.systemd:
-    name: "docker-compose@victoriametrics"
+    name: "docker-compose-w1@victoriametrics"
     state: restarted
   become: true

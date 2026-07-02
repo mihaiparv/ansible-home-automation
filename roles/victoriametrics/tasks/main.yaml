@@ -67,7 +67,7 @@
 
 - name: ensure victoriametrics service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@victoriametrics"
+    name: "docker-compose-w1@victoriametrics"
     enabled: true
     daemon_reload: true
   become: true

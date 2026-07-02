@@ -40,7 +40,7 @@
 
 - name: ensure zigbee2mqtt service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@zigbee2mqtt"
+    name: "docker-compose-w2@zigbee2mqtt"
     enabled: true
     daemon_reload: true
   become: true

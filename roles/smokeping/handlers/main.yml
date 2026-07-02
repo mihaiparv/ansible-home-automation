@@ -1,6 +1,6 @@
 ---
 - name: restart smokeping
   ansible.builtin.systemd:
-    name: "docker-compose@smokeping"
+    name: "docker-compose-w2@smokeping"
     state: restarted
   become: true

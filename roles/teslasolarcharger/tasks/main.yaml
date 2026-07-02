@@ -27,7 +27,7 @@
 
 - name: ensure teslasolarcharger service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@teslasolarcharger"
+    name: "docker-compose-w2@teslasolarcharger"
     enabled: true
     daemon_reload: true
   become: true

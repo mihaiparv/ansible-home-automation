@@ -41,7 +41,7 @@
 
 - name: ensure teslamate service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@teslamate"
+    name: "docker-compose-w2@teslamate"
     enabled: true
     daemon_reload: true
   become: true

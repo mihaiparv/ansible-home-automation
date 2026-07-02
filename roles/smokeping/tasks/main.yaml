@@ -43,7 +43,7 @@
 
 - name: ensure smokeping service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@smokeping"
+    name: "docker-compose-w2@smokeping"
     enabled: true
     daemon_reload: true
   become: true

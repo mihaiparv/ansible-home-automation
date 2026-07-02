@@ -7,7 +7,7 @@ services:
       - Serilog__MinimumLevel__Default=Information
       - Serilog__MinimumLevel__Override__TeslaSolarCharger.Server.Services.TeslaFleetApiService=Fatal
       - TZ=Europe/Bucharest ##You can change your Timezone here
-      - UseFleetApi=False
+      # - UseFleetApi=False
       - SendTeslaApiStatsToBackend=False
       - BleBaseUrl=http://{{ hostvars['pi0']['ansible_host'] }}:7210/api
     extra_hosts:
