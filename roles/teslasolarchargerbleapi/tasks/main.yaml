@@ -5,7 +5,7 @@
     owner: "{{ teslasolarchargerbleapi_username }}"
     group: "{{ teslasolarchargerbleapi_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ teslasolarchargerbleapi_home }}"
     - "{{ teslasolarchargerbleapi_home }}/externalFiles"
@@ -19,7 +19,7 @@
     owner: "{{ teslasolarchargerbleapi_username }}"
     group: "{{ teslasolarchargerbleapi_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart teslasolarchargerbleapi
   tags:
