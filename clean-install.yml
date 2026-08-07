@@ -38,8 +38,13 @@
     - role: ansible_docker
       docker_version: "5:29.7.2-1~ubuntu.26.04~resolute"
     - role: docker_compose
+    - role: homeassistant
+      homeassistant_version: 2026.8.0
+      homeassistant_variant: "ap2"
     - role: system
       system_required_users:
+        - name: "{{ homeassistant_username }}"
+          id: "{{ homeassistant_uid }}"
         - name: "{{ smokeping_username }}"
           id: "{{ smokeping_uid }}"
         - name: "{{ teslamate_username }}"
@@ -70,9 +75,5 @@
       docker_version: "5:29.4.0-1~ubuntu.24.04~noble"
     - docker_compose
     - role: system
-      system_required_users:
-        - name: "{{ homeassistant_username }}"
-          id: "{{ homeassistant_uid }}"
-    - role: homeassistant
-      homeassistant_version: 2026.4.3
+      system_required_users: []
     - role: tailscale

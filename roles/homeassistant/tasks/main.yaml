@@ -5,7 +5,7 @@
     owner: "{{ homeassistant_username }}"
     group: "{{ homeassistant_username }}"
     mode: 0755
-  become: yes
+  become: true
   with_items:
     - "{{ homeassistant_home }}"
     - "{{ homeassistant_home }}/config"
@@ -21,9 +21,9 @@
     owner: "{{ homeassistant_username }}"
     group: "{{ homeassistant_username }}"
     mode: 0755
-  become: yes
+  become: true
   notify:
-    - restart homeassistant
+    - restart {{ homeassistant_name }}
   tags:
     - homeassistant
 
@@ -34,15 +34,15 @@
     owner: "{{ homeassistant_username }}"
     group: "{{ homeassistant_username }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
-    - restart homeassistant
+    - restart {{ homeassistant_name }}
   tags:
     - homeassistant
 
 - name: ensure homeassistant service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@homeassistant"
+    name: "docker-compose-w2@{{ homeassistant_name }}"
     enabled: true
     daemon_reload: true
   become: true

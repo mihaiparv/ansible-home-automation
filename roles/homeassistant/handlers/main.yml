@@ -1,6 +1,6 @@
 ---
-- name: restart homeassistant
+- name: restart {{ homeassistant_name }}
   ansible.builtin.systemd:
-    name: "docker-compose@homeassistant"
+    name: "docker-compose-w2@{{ homeassistant_name }}"
     state: restarted
   become: true

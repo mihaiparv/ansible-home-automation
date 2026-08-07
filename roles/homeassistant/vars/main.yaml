@@ -1,0 +1,2 @@
+homeassistant_name: "homeassistant{{ (homeassistant_variant != '') | ternary('-' + homeassistant_variant, '' ) }}"
+homeassistant_home: "/opt/{{ homeassistant_name }}"

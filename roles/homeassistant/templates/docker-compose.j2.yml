@@ -1,6 +1,6 @@
 services:
-  homeassistant:
-    container_name: homeassistant
+  {{ homeassistant_name }}:
+    container_name: "{{ homeassistant_name }}"
     image: "ghcr.io/home-assistant/home-assistant:{{ homeassistant_version }}"
     volumes:
       - "{{ homeassistant_home }}/config:/config"
@@ -14,6 +14,11 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     security_opt:
       - no-new-privileges
     restart: unless-stopped
