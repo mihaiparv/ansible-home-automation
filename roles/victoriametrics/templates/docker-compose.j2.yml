@@ -7,11 +7,7 @@ services:
       test: ["CMD", "nc", "-z", "-n", "-v", "127.0.0.1", "24224"]
       start_period: 3s
     image: fluent/fluentd:v{{ fluentd_version }}
-    networks:
-      - home_automation
-    ports:
-      - "5140:5140"
-      - "24224:24224"
+    network_mode: host
     restart: unless-stopped
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
@@ -50,6 +46,8 @@ services:
     image: victoriametrics/vlagent:v{{ victoria_logs_version }}
     networks:
       - home_automation
+    ports:
+      - "9429:9429"
     restart: unless-stopped
     volumes:
       - "{{ victoriametrics_home }}/agent:/vlagent"
