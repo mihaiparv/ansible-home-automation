@@ -23,7 +23,7 @@
 - hosts: pi0
   roles:
     - role: ansible_docker
-      docker_version: "5:29.1.5-1~debian.13~trixie"
+      docker_version: "5:29.7.2-1~debian.13~trixie"
     - docker_compose
     - system_bluetooth_fix
     - role: system
@@ -36,7 +36,7 @@
 - hosts: hp260g2
   roles:
     - role: ansible_docker
-      docker_version: "5:29.6.1-1~ubuntu.26.04~resolute"
+      docker_version: "5:29.7.2-1~ubuntu.26.04~resolute"
     - role: docker_compose
     - role: system
       system_required_users:
@@ -54,15 +54,15 @@
       smokeping_version: 2.9.0-r0-ls174
     - role: tailscale
     - role: teslamate
-      teslamateapi_version: 1.24.3
+      teslamateapi_version: 1.25.0
       teslamate_version: 4.0.1
     - role: teslasolarcharger
       teslasolarcharger_version: 2.30.0
     - role: victoriametrics
-      victoria_logs_version: 1.51.0
-      victoria_metrics_version: 1.146.0
+      victoria_logs_version: 1.52.0
+      victoria_metrics_version: 1.149.0
     - role: zigbee2mqtt
-      zigbee2mqtt_version: 2.12.0
+      zigbee2mqtt_version: 2.13.0
 
 - hosts: micro10
   roles:
