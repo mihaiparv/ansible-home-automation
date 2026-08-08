@@ -9,15 +9,11 @@
           id: "{{ mosquitto_uid }}"
         - name: "{{ openhab_username }}"
           id: "{{ openhab_uid }}"
-        - name: "{{ homeassistant_username }}"
-          id: "{{ homeassistant_uid }}"
         - name: "{{ evcc_username }}"
           id: "{{ evcc_uid }}"
     - role: system_configure_trim
     - role: mosquitto
       mosquitto_version: 2.0
-    - role: homeassistant
-      homeassistant_version: 2026.4.3
     - role: tailscale
 
 - hosts: pi0
@@ -38,6 +34,9 @@
     - role: ansible_docker
       docker_version: "5:29.7.2-1~ubuntu.26.04~resolute"
     - role: docker_compose
+    - role: homeassistant
+      homeassistant_version: 2026.8.0
+      homeassistant_variant: "ap1"
     - role: homeassistant
       homeassistant_version: 2026.8.0
       homeassistant_variant: "ap2"
