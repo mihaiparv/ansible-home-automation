@@ -1,6 +1,6 @@
 ---
 - name: restart mosquitto
   ansible.builtin.systemd:
-    name: "docker-compose@mosquitto"
+    name: "docker-compose-w2@mosquitto"
     state: restarted
   become: true

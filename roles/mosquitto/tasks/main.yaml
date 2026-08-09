@@ -5,13 +5,12 @@
     owner: "{{ mosquitto_username }}"
     group: "{{ mosquitto_username }}"
     mode: 0774
-  become: yes
+  become: true
   with_items:
     - "{{ mosquitto_home }}"
     - "{{ mosquitto_home }}/config"
     - "{{ mosquitto_home }}/data"
     - "{{ mosquitto_home }}/etc"
-    - "{{ mosquitto_home }}/log"
   tags:
     - mosquitto
 
@@ -22,7 +21,7 @@
     owner: "{{ mosquitto_username }}"
     group: "{{ mosquitto_username }}"
     mode: 0664
-  become: yes
+  become: true
   notify:
     - restart mosquitto
   tags:
@@ -34,8 +33,8 @@
     dest: "{{ mosquitto_home }}/etc/passwd"
     owner: "{{ mosquitto_username }}"
     group: "{{ mosquitto_username }}"
-    mode: 0644
-  become: yes
+    mode: 0700
+  become: true
   notify:
     - restart mosquitto
   tags:
@@ -48,7 +47,7 @@
     owner: "{{ mosquitto_username }}"
     group: "{{ mosquitto_username }}"
     mode: 0664
-  become: yes
+  become: true
   notify:
     - restart mosquitto
   tags:
@@ -56,9 +55,9 @@
 
 - name: ensure mosquitto service is enabled to start at boot
   ansible.builtin.systemd:
-    name: "docker-compose@mosquitto"
+    name: "docker-compose-w2@mosquitto"
     enabled: yes
     daemon_reload: yes
-  become: yes
+  become: true
   tags:
     - mosquitto

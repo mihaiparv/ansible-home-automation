@@ -5,15 +5,11 @@
     - docker_compose
     - role: system
       system_required_users:
-        - name: "{{ mosquitto_username }}"
-          id: "{{ mosquitto_uid }}"
         - name: "{{ openhab_username }}"
           id: "{{ openhab_uid }}"
         - name: "{{ evcc_username }}"
           id: "{{ evcc_uid }}"
     - role: system_configure_trim
-    - role: mosquitto
-      mosquitto_version: 2.0
     - role: tailscale
 
 - hosts: pi0
@@ -40,10 +36,14 @@
     - role: homeassistant
       homeassistant_version: 2026.8.0
       homeassistant_variant: "ap2"
+    - role: mosquitto
+      mosquitto_version: 2.0
     - role: system
       system_required_users:
         - name: "{{ homeassistant_username }}"
           id: "{{ homeassistant_uid }}"
+        - name: "{{ mosquitto_username }}"
+          id: "{{ mosquitto_uid }}"
         - name: "{{ smokeping_username }}"
           id: "{{ smokeping_uid }}"
         - name: "{{ teslamate_username }}"

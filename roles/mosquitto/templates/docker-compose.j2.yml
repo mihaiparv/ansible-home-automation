@@ -7,11 +7,15 @@ services:
       - "{{ mosquitto_home}}/config:/mosquitto/config"
       - "{{ mosquitto_home}}/data:/mosquitto/data"
       - "{{ mosquitto_home}}/etc:/etc/mosquitto"
-      - "{{ mosquitto_home}}/log:/mosquitto/log"
     user: "{{ mosquitto_uid }}:{{ mosquitto_uid }}"
     ports:
       - 1883:1883
       - 9001:9001
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: 127.0.0.1:24224
+        labels: com.docker.compose.service
     networks:
       - home_automation
 

@@ -11,7 +11,7 @@ services:
       - DATABASE_PASS={{ teslamate_database_password }}
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
-      - MQTT_HOST=192.168.1.10
+      - MQTT_HOST=mosquitto
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
       - TZ=Europe/Bucharest
@@ -41,7 +41,7 @@ services:
       - DATABASE_PASS={{ teslamate_database_password }}
       - DATABASE_NAME=teslamate
       - DATABASE_HOST=database
-      - MQTT_HOST=192.168.1.10
+      - MQTT_HOST=mosquitto
       - MQTT_USERNAME={{ mosquitto_user }}
       - MQTT_PASSWORD={{ mosquitto_pass_clear }}
       - ENABLE_COMMANDS=true
