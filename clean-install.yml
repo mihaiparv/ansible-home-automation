@@ -31,10 +31,10 @@
       docker_version: "5:29.7.2-1~ubuntu.26.04~resolute"
     - role: docker_compose
     - role: homeassistant
-      homeassistant_version: 2026.8.1
+      homeassistant_version: 2026.8.3
       homeassistant_variant: "ap1"
     - role: homeassistant
-      homeassistant_version: 2026.8.1
+      homeassistant_version: 2026.8.3
       homeassistant_variant: "ap2"
     - role: mosquitto
       mosquitto_version: 2.0
@@ -59,7 +59,7 @@
     - role: tailscale
     - role: teslamate
       teslamateapi_version: 1.25.0
-      teslamate_version: 4.0.1
+      teslamate_version: 4.2.0
     - role: teslasolarcharger
       teslasolarcharger_version: 2.30.0
     - role: victoriametrics
