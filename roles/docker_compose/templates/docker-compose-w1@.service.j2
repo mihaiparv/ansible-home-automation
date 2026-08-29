@@ -10,6 +10,7 @@ WorkingDirectory=/opt/%i
 ExecStartPre=/usr/bin/docker compose create
 ExecStart=/usr/bin/docker compose start
 ExecStop=/usr/bin/docker compose stop
+ExecStartPost=/usr/bin/timeout 30 sh -c 'while ! ss -H -t -l -n sport = :24224 | grep -q "^LISTEN.*:24224"; do sleep 1; done'
 
 [Install]
 WantedBy=multi-user.target
