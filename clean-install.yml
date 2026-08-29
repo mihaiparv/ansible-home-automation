@@ -4,11 +4,7 @@
       docker_version: "5:29.4.0-1~ubuntu.22.04~jammy"
     - docker_compose
     - role: system
-      system_required_users:
-        - name: "{{ openhab_username }}"
-          id: "{{ openhab_uid }}"
-        - name: "{{ evcc_username }}"
-          id: "{{ evcc_uid }}"
+      system_required_users: []
     - role: system_configure_trim
     - role: tailscale
 
